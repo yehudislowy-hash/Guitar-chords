@@ -397,7 +397,7 @@
         padding: 30px;
         border-radius: 15px;
         margin-bottom: 20px;
-        font-family: 'Courier New', monospace;
+        font-family: var(--content-font, 'Courier New'), monospace;
         line-height: 1.8;
         white-space: pre-wrap;
         overflow-x: auto;
@@ -408,11 +408,28 @@
         font-weight: 700;
         font-size: var(--text-size, 16px);
         letter-spacing: 0.5px;
+        transition: all 0.3s;
+    }
+
+    .chord-line.current-line {
+        background: rgba(102, 126, 234, 0.2);
+        padding: 5px;
+        border-radius: 5px;
+        transform: scale(1.05);
     }
 
     .lyric-line {
         color: #2d3748;
         font-size: var(--text-size, 16px);
+        transition: all 0.3s;
+    }
+
+    .lyric-line.current-line {
+        background: rgba(102, 126, 234, 0.2);
+        padding: 5px;
+        border-radius: 5px;
+        transform: scale(1.05);
+        font-weight: 600;
     }
 
     /* YouTube Player */
@@ -882,6 +899,96 @@
         display: none !important;
     }
 
+    .chord-diagram-modal {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: white;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        z-index: 999;
+        display: none;
+    }
+
+    .chord-diagram-modal.active {
+        display: block;
+    }
+
+    .chord-diagram-title {
+        font-size: 1.5em;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 15px;
+        color: #667eea;
+    }
+
+    .chord-diagram-svg {
+        width: 200px;
+        height: 240px;
+    }
+
+    .font-selector {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .font-select {
+        padding: 8px 12px;
+        border-radius: 6px;
+        border: 2px solid #667eea;
+        font-size: 1em;
+        background: white;
+    }
+
+    .song-counter {
+        display: inline-block;
+        background: rgba(255,255,255,0.3);
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 0.9em;
+        margin-left: 10px;
+    }
+
+    .playback-speed {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    .speed-option {
+        padding: 8px 15px;
+        background: #e2e8f0;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s;
+    }
+
+    .speed-option.active {
+        background: #667eea;
+        color: white;
+    }
+
+    .setlist-manager {
+        margin: 20px 0;
+    }
+
+    .setlist-btn {
+        padding: 12px 25px;
+        background: #ed8936;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        margin-right: 10px;
+    }
+
     @media print {
         body {
             background: white;
@@ -912,8 +1019,9 @@
 <div class="app-screen" id="appScreen">
     <div class="app-header">
         <button class="back-btn" onclick="goBackToCategories()">← Back</button>
-        <h2 class="app-title" id="categoryTitle">Jewish Music</h2>
+        <h2 class="app-title" id="categoryTitle">Jewish Music<span class="song-counter" id="songCounter">0 songs</span></h2>
         <div class="header-controls">
+            <button class="icon-btn" onclick="openSetlistManager()">📋 Setlists</button>
             <button class="icon-btn" onclick="openTuner()">🎸 Tuner</button>
         </div>
     </div>
@@ -973,7 +1081,15 @@
     </div>
 
     <div class="youtube-container" id="youtubeContainer" style="display:none;">
-        <iframe id="youtubePlayer" class="youtube-player" src="" frameborder="0" allowfullscreen></iframe>
+        <div class="playback-speed">
+            <label>Speed:</label>
+            <button class="speed-option" onclick="setYouTubeSpeed(0.5)">0.5x</button>
+            <button class="speed-option" onclick="setYouTubeSpeed(0.75)">0.75x</button>
+            <button class="speed-option active" onclick="setYouTubeSpeed(1)">1x</button>
+            <button class="speed-option" onclick="setYouTubeSpeed(1.25)">1.25x</button>
+            <button class="speed-option" onclick="setYouTubeSpeed(1.5)">1.5x</button>
+        </div>
+        <iframe id="youtubePlayer" class="youtube-player" src="" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" enablejsapi="1"></iframe>
     </div>
 
     <div class="song-content" id="songContent"></div>
@@ -988,6 +1104,16 @@
         <div class="text-size-control">
             <button class="size-btn" onclick="changeTextSize(-2)">A-</button>
             <button class="size-btn" onclick="changeTextSize(2)">A+</button>
+        </div>
+        <div class="font-selector">
+            <label>Font:</label>
+            <select class="font-select" id="fontSelect" onchange="changeFont()">
+                <option value="'Courier New', monospace">Courier</option>
+                <option value="'Arial', sans-serif">Arial</option>
+                <option value="'Georgia', serif">Georgia</option>
+                <option value="'Verdana', sans-serif">Verdana</option>
+                <option value="'Times New Roman', serif">Times</option>
+            </select>
         </div>
     </div>
 </div>
@@ -1126,6 +1252,27 @@ When Esti’s up till 9?”></textarea>
     </div>
 </div>
 
+<!-- Chord Diagram Modal -->
+<div class="chord-diagram-modal" id="chordDiagramModal">
+    <div class="chord-diagram-title" id="chordDiagramTitle">C</div>
+    <svg class="chord-diagram-svg" id="chordDiagramSvg" viewBox="0 0 200 240"></svg>
+</div>
+
+<!-- Setlist Manager Modal -->
+<div class="modal" id="setlistModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Setlist Manager</h2>
+            <button class="close-modal" onclick="closeSetlistModal()">&times;</button>
+        </div>
+        
+        <div class="setlist-manager">
+            <button class="setlist-btn" onclick="createNewSetlist()">+ New Setlist</button>
+            <div id="setlistsList"></div>
+        </div>
+    </div>
+</div>
+
 <script>
     // Global State
     let appState = {
@@ -1144,7 +1291,11 @@ When Esti’s up till 9?”></textarea>
         selectedString: null,
         currentAlbumArtData: null,
         mediaStream: null,
-        lastTuneTime: 0
+        lastTuneTime: 0,
+        setlists: [],
+        currentLine: 0,
+        youtubePlayer: null,
+        selectedFont: "'Courier New', monospace"
     };
 
     // Initialize
@@ -1305,7 +1456,7 @@ When Esti’s up till 9?”></textarea>
             const videoId = extractYouTubeId(song.youtube);
             if (videoId) {
                 document.getElementById('youtubeContainer').style.display = 'block';
-                document.getElementById('youtubePlayer').src = `https://www.youtube-nocookie.com/embed/${videoId}`;
+                document.getElementById('youtubePlayer').src = `https://www.youtube-nocookie.com/embed/${videoId}?enablejsapi=1`;
             } else {
                 document.getElementById('youtubeContainer').style.display = 'none';
             }
@@ -1449,11 +1600,14 @@ When Esti’s up till 9?”></textarea>
         document.getElementById('scrollBtn').classList.add('stop');
         
         const speed = parseInt(document.getElementById('scrollSpeed').value);
-        const scrollAmount = speed * 0.5;
+        const scrollAmount = speed * 0.3; // Smaller increments for smoother scroll
         
         appState.scrollInterval = setInterval(() => {
-            window.scrollBy(0, scrollAmount);
-        }, 50);
+            window.scrollBy({
+                top: scrollAmount,
+                behavior: 'auto' // Changed to auto for performance, smoothness comes from smaller increments
+            });
+        }, 16); // 60fps for ultra-smooth scrolling
     }
 
     function stopAutoScroll() {
@@ -1960,6 +2114,283 @@ When Esti’s up till 9?”></textarea>
         
         document.querySelectorAll('.tuning-peg').forEach(btn => btn.classList.remove('active'));
     }
+
+    // Font Change Function
+    function changeFont() {
+        const font = document.getElementById('fontSelect').value;
+        appState.selectedFont = font;
+        document.getElementById('songContent').style.setProperty('--content-font', font);
+        localStorage.setItem('selectedFont', font);
+    }
+
+    // Load saved font
+    function loadFont() {
+        const saved = localStorage.getItem('selectedFont');
+        if (saved) {
+            appState.selectedFont = saved;
+            document.getElementById('fontSelect').value = saved;
+            document.getElementById('songContent').style.setProperty('--content-font', saved);
+        }
+    }
+
+    // YouTube Speed Control
+    function setYouTubeSpeed(speed) {
+        const iframe = document.getElementById('youtubePlayer');
+        const player = iframe.contentWindow;
+        
+        // Update active button
+        document.querySelectorAll('.speed-option').forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+        
+        // Send message to YouTube iframe
+        player.postMessage(JSON.stringify({
+            event: 'command',
+            func: 'setPlaybackRate',
+            args: [speed]
+        }), '*');
+    }
+
+    // Update song counter
+    function updateSongCounter() {
+        const filtered = appState.songs.filter(s => s.category === appState.currentCategory);
+        const counter = document.getElementById('songCounter');
+        if (counter) {
+            counter.textContent = `${filtered.length} song${filtered.length !== 1 ? 's' : ''}`;
+        }
+    }
+
+    // Highlight current line during scroll
+    function highlightCurrentLine() {
+        if (!appState.isScrolling) return;
+        
+        const content = document.getElementById('songContent');
+        const lines = content.querySelectorAll('.chord-line, .lyric-line');
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const windowHeight = window.innerHeight;
+        const centerLine = scrollTop + (windowHeight / 3); // Highlight line at top third of screen
+        
+        lines.forEach((line, index) => {
+            const rect = line.getBoundingClientRect();
+            const lineTop = rect.top + scrollTop;
+            
+            if (Math.abs(lineTop - centerLine) < 50) {
+                line.classList.add('current-line');
+                appState.currentLine = index;
+            } else {
+                line.classList.remove('current-line');
+            }
+        });
+        
+        requestAnimationFrame(highlightCurrentLine);
+    }
+
+    // Chord Diagrams Data (common chords)
+    const chordDiagrams = {
+        'C': [0, 3, 2, 0, 1, 0],
+        'D': [-1, -1, 0, 2, 3, 2],
+        'E': [0, 2, 2, 1, 0, 0],
+        'F': [1, 3, 3, 2, 1, 1],
+        'G': [3, 2, 0, 0, 0, 3],
+        'A': [-1, 0, 2, 2, 2, 0],
+        'Am': [-1, 0, 2, 2, 1, 0],
+        'Dm': [-1, -1, 0, 2, 3, 1],
+        'Em': [0, 2, 2, 0, 0, 0],
+        'G7': [3, 2, 0, 0, 0, 1],
+        'C7': [0, 3, 2, 3, 1, 0],
+        'D7': [-1, -1, 0, 2, 1, 2],
+        'E7': [0, 2, 0, 1, 0, 0],
+        'A7': [-1, 0, 2, 0, 2, 0],
+        'Bm': [-1, 2, 4, 4, 3, 2],
+        'F#m': [2, 4, 4, 2, 2, 2]
+    };
+
+    // Show chord diagram
+    function showChordDiagram(chord) {
+        const modal = document.getElementById('chordDiagramModal');
+        const title = document.getElementById('chordDiagramTitle');
+        const svg = document.getElementById('chordDiagramSvg');
+        
+        // Clean chord name (remove numbers, sus, etc)
+        const baseChord = chord.replace(/[0-9]|sus|add|maj|min|dim|aug/g, '').trim();
+        
+        if (chordDiagrams[baseChord]) {
+            title.textContent = chord;
+            svg.innerHTML = drawChordDiagram(chordDiagrams[baseChord]);
+            modal.classList.add('active');
+            
+            // Auto-hide after 3 seconds
+            setTimeout(() => {
+                modal.classList.remove('active');
+            }, 3000);
+        }
+    }
+
+    // Draw chord diagram SVG
+    function drawChordDiagram(positions) {
+        let svg = '';
+        const startX = 20;
+        const startY = 40;
+        const fretWidth = 30;
+        const stringSpacing = 30;
+        
+        // Draw strings (vertical lines)
+        for (let i = 0; i < 6; i++) {
+            svg += `<line x1="${startX + i * stringSpacing}" y1="${startY}" x2="${startX + i * stringSpacing}" y2="${startY + 120}" stroke="#2d3748" stroke-width="2"/>`;
+        }
+        
+        // Draw frets (horizontal lines)
+        for (let i = 0; i <= 4; i++) {
+            svg += `<line x1="${startX}" y1="${startY + i * fretWidth}" x2="${startX + 150}" y2="${startY + i * fretWidth}" stroke="#2d3748" stroke-width="${i === 0 ? 4 : 2}"/>`;
+        }
+        
+        // Draw finger positions
+        positions.forEach((fret, string) => {
+            if (fret === -1) {
+                // X for muted string
+                svg += `<text x="${startX + string * stringSpacing - 5}" y="30" font-size="20" fill="#e53e3e" font-weight="bold">×</text>`;
+            } else if (fret === 0) {
+                // O for open string
+                svg += `<circle cx="${startX + string * stringSpacing}" cy="25" r="8" fill="none" stroke="#48bb78" stroke-width="3"/>`;
+            } else {
+                // Dot for fret position
+                svg += `<circle cx="${startX + string * stringSpacing}" cy="${startY + (fret - 0.5) * fretWidth}" r="10" fill="#667eea"/>`;
+            }
+        });
+        
+        // String labels
+        const strings = ['E', 'A', 'D', 'G', 'B', 'e'];
+        strings.forEach((str, i) => {
+            svg += `<text x="${startX + i * stringSpacing - 5}" y="220" font-size="14" fill="#718096" font-weight="bold">${str}</text>`;
+        });
+        
+        return svg;
+    }
+
+    // Make chords clickable
+    function makeChordSClickable() {
+        const chordTags = document.querySelectorAll('.chord-tag');
+        chordTags.forEach(tag => {
+            tag.style.cursor = 'pointer';
+            tag.onclick = () => showChordDiagram(tag.textContent);
+        });
+        
+        // Also make chords in lyrics clickable
+        const content = document.getElementById('songContent');
+        const chordLines = content.querySelectorAll('.chord-line');
+        chordLines.forEach(line => {
+            line.style.cursor = 'pointer';
+            line.onclick = (e) => {
+                // Extract chord near click position
+                const text = line.textContent;
+                const chordPattern = /\b([A-G](#|b)?)(m|maj|min|dim|aug|sus|add)?([0-9]?)\b/g;
+                let match;
+                while ((match = chordPattern.exec(text)) !== null) {
+                    showChordDiagram(match[0]);
+                    break; // Show first chord
+                }
+            };
+        });
+    }
+
+    // Setlist Management
+    function loadSetlists() {
+        const stored = localStorage.getItem('guitarChordsSetlists');
+        if (stored) {
+            appState.setlists = JSON.parse(stored);
+        }
+    }
+
+    function saveSetlists() {
+        localStorage.setItem('guitarChordsSetlists', JSON.stringify(appState.setlists));
+    }
+
+    function openSetlistManager() {
+        document.getElementById('setlistModal').classList.add('active');
+        displaySetlists();
+    }
+
+    function closeSetlistModal() {
+        document.getElementById('setlistModal').classList.remove('active');
+    }
+
+    function createNewSetlist() {
+        const name = prompt('Enter setlist name:');
+        if (name) {
+            appState.setlists.push({
+                id: Date.now().toString(),
+                name,
+                songs: []
+            });
+            saveSetlists();
+            displaySetlists();
+        }
+    }
+
+    function displaySetlists() {
+        const container = document.getElementById('setlistsList');
+        container.innerHTML = '';
+        
+        if (appState.setlists.length === 0) {
+            container.innerHTML = '<p style="color:#718096;padding:20px;">No setlists yet. Create one!</p>';
+            return;
+        }
+        
+        appState.setlists.forEach(setlist => {
+            const div = document.createElement('div');
+            div.style.cssText = 'background:#f7fafc;padding:15px;margin:10px 0;border-radius:10px;';
+            div.innerHTML = `
+                <h3 style="color:#667eea;margin-bottom:10px;">${setlist.name}</h3>
+                <p style="color:#718096;margin-bottom:10px;">${setlist.songs.length} songs</p>
+                <button onclick="viewSetlist('${setlist.id}')" style="padding:8px 15px;background:#667eea;color:white;border:none;border-radius:6px;cursor:pointer;margin-right:10px;">View</button>
+                <button onclick="deleteSetlist('${setlist.id}')" style="padding:8px 15px;background:#f56565;color:white;border:none;border-radius:6px;cursor:pointer;">Delete</button>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    function deleteSetlist(id) {
+        if (confirm('Delete this setlist?')) {
+            appState.setlists = appState.setlists.filter(s => s.id !== id);
+            saveSetlists();
+            displaySetlists();
+        }
+    }
+
+    function viewSetlist(id) {
+        const setlist = appState.setlists.find(s => s.id === id);
+        if (setlist) {
+            alert(`Setlist: ${setlist.name}\n\n${setlist.songs.length} songs\n\n(Full setlist playback coming soon!)`);
+        }
+    }
+
+    // Update displaySongs to add song counter
+    const originalDisplaySongs = displaySongs;
+    displaySongs = function() {
+        originalDisplaySongs();
+        updateSongCounter();
+    };
+
+    // Update openSong to enable chord diagrams and line highlighting
+    const originalOpenSong = openSong;
+    openSong = function(song) {
+        originalOpenSong(song);
+        setTimeout(() => {
+            makeChordSClickable();
+            loadFont();
+        }, 100);
+    };
+
+    // Initialize setlists
+    document.addEventListener('DOMContentLoaded', () => {
+        loadSetlists();
+    });
+
+    // Start line highlighting when scrolling starts
+    const originalStartAutoScroll = startAutoScroll;
+    startAutoScroll = function() {
+        originalStartAutoScroll();
+        highlightCurrentLine();
+    };
 </script>
 ```
 
