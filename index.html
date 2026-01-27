@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,873 +13,891 @@
             box-sizing: border-box;
         }
 
+```
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+    }
+
+    /* Category Selection Screen */
+    .category-screen {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 20px;
+    }
+
+    .category-screen h1 {
+        color: white;
+        font-size: 3em;
+        margin-bottom: 50px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .category-buttons {
+        display: flex;
+        gap: 30px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .category-btn {
+        padding: 40px 60px;
+        font-size: 1.8em;
+        background: white;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        transition: all 0.3s;
+        font-weight: 600;
+        color: #667eea;
+    }
+
+    .category-btn:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+    }
+
+    .tuner-btn-home {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        padding: 15px 30px;
+        background: rgba(255,255,255,0.2);
+        color: white;
+        border: 2px solid white;
+        border-radius: 10px;
+        font-size: 1.1em;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .tuner-btn-home:hover {
+        background: rgba(255,255,255,0.3);
+    }
+
+    /* Main App Screen */
+    .app-screen {
+        display: none;
+        padding: 20px;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .app-header {
+        background: rgba(255,255,255,0.1);
+        padding: 20px;
+        border-radius: 15px;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .back-btn {
+        padding: 12px 25px;
+        background: rgba(255,255,255,0.9);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1em;
+        font-weight: 600;
+        color: #667eea;
+    }
+
+    .app-title {
+        color: white;
+        font-size: 2em;
+        flex: 1;
+        text-align: center;
+    }
+
+    .header-controls {
+        display: flex;
+        gap: 10px;
+    }
+
+    .icon-btn {
+        padding: 12px 20px;
+        background: rgba(255,255,255,0.2);
+        border: 2px solid white;
+        border-radius: 8px;
+        color: white;
+        cursor: pointer;
+        font-size: 1em;
+        transition: all 0.3s;
+    }
+
+    .icon-btn:hover {
+        background: rgba(255,255,255,0.3);
+    }
+
+    /* Browse Options */
+    .browse-options {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
+
+    .browse-btn {
+        flex: 1;
+        min-width: 150px;
+        padding: 15px;
+        background: white;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 1.1em;
+        font-weight: 600;
+        transition: all 0.3s;
+        color: #667eea;
+    }
+
+    .browse-btn.active {
+        background: #667eea;
+        color: white;
+    }
+
+    /* Search and Add */
+    .controls {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
+
+    .search-box {
+        flex: 1;
+        min-width: 250px;
+        padding: 15px;
+        font-size: 16px;
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .add-song-btn {
+        padding: 15px 30px;
+        background: #48bb78;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        transition: all 0.3s;
+    }
+
+    .add-song-btn:hover {
+        background: #38a169;
+    }
+
+    .shuffle-btn {
+        padding: 15px 30px;
+        background: #f56565;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    /* Songs List */
+    .songs-container {
+        background: rgba(255,255,255,0.95);
+        border-radius: 15px;
+        padding: 20px;
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+
+    .songs-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .song-item {
+        padding: 15px;
+        background: #f7fafc;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .song-item:hover {
+        background: #e2e8f0;
+        transform: translateX(5px);
+    }
+
+    .song-item img {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .song-item-info {
+        flex: 1;
+    }
+
+    .song-item-title {
+        font-size: 1.2em;
+        font-weight: 600;
+        color: #2d3748;
+    }
+
+    .song-item-artist {
+        color: #718096;
+        font-size: 0.9em;
+    }
+
+    .artist-group {
+        margin-bottom: 30px;
+    }
+
+    .artist-header {
+        font-size: 1.5em;
+        font-weight: 700;
+        color: #667eea;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 3px solid #667eea;
+    }
+
+    /* Song View Screen */
+    .song-view-screen {
+        display: none;
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .song-view-header {
+        background: rgba(255,255,255,0.95);
+        padding: 25px;
+        border-radius: 15px;
+        margin-bottom: 20px;
+    }
+
+    .song-view-controls {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
+
+    .control-btn {
+        padding: 10px 20px;
+        background: #667eea;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.95em;
+        transition: all 0.3s;
+    }
+
+    .control-btn:hover {
+        background: #5568d3;
+    }
+
+    .song-info-section {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+        margin-bottom: 20px;
+    }
+
+    .song-album-art {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .song-details {
+        flex: 1;
+    }
+
+    .song-title-view {
+        font-size: 2em;
+        font-weight: 700;
+        color: #2d3748;
+        margin-bottom: 10px;
+    }
+
+    .song-artist-view {
+        font-size: 1.3em;
+        color: #718096;
+        margin-bottom: 15px;
+    }
+
+    .capo-info {
+        display: inline-block;
+        padding: 8px 15px;
+        background: #fbd38d;
+        border-radius: 8px;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+
+    .chords-list {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        padding: 15px;
+        background: #edf2f7;
+        border-radius: 10px;
+    }
+
+    .chord-tag {
+        padding: 8px 15px;
+        background: #667eea;
+        color: white;
+        border-radius: 6px;
+        font-weight: 600;
+        font-family: 'Courier New', monospace;
+    }
+
+    .capo-transpose {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        margin: 15px 0;
+    }
+
+    .capo-transpose label {
+        font-weight: 600;
+    }
+
+    .capo-select {
+        padding: 8px 12px;
+        border-radius: 6px;
+        border: 2px solid #667eea;
+        font-size: 1em;
+    }
+
+    /* Song Content */
+    .song-content {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        margin-bottom: 20px;
+        font-family: 'Courier New', monospace;
+        line-height: 1.8;
+        white-space: pre-wrap;
+        overflow-x: auto;
+    }
+
+    .chord-line {
+        color: #e53e3e;
+        font-weight: 700;
+        font-size: var(--text-size, 16px);
+        letter-spacing: 0.5px;
+    }
+
+    .lyric-line {
+        color: #2d3748;
+        font-size: var(--text-size, 16px);
+    }
+
+    /* YouTube Player */
+    .youtube-container {
+        background: white;
+        padding: 20px;
+        border-radius: 15px;
+        margin-bottom: 20px;
+    }
+
+    .youtube-player {
+        width: 100%;
+        aspect-ratio: 16/9;
+        border-radius: 10px;
+    }
+
+    /* Scroll Controls */
+    .scroll-controls {
+        background: rgba(255,255,255,0.95);
+        padding: 20px;
+        border-radius: 15px;
+        display: flex;
+        gap: 15px;
+        align-items: center;
+        flex-wrap: wrap;
+        position: sticky;
+        bottom: 20px;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+    }
+
+    .scroll-btn {
+        padding: 12px 25px;
+        background: #48bb78;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1em;
+        font-weight: 600;
+    }
+
+    .scroll-btn.stop {
+        background: #f56565;
+    }
+
+    .scroll-speed {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex: 1;
+    }
+
+    .speed-slider {
+        flex: 1;
+        min-width: 200px;
+    }
+
+    .text-size-control {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .size-btn {
+        padding: 8px 15px;
+        background: #667eea;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+    }
+
+    /* Modal */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.8);
+        z-index: 1000;
+        overflow-y: auto;
+        padding: 20px;
+    }
+
+    .modal.active {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal-content {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        max-width: 800px;
+        width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .modal-title {
+        font-size: 1.8em;
+        font-weight: 700;
+        color: #2d3748;
+    }
+
+    .close-modal {
+        font-size: 2em;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #718096;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #2d3748;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 1em;
+        font-family: inherit;
+    }
+
+    .form-group textarea {
+        font-family: 'Courier New', monospace;
+        min-height: 300px;
+        resize: vertical;
+    }
+
+    .upload-zone {
+        border: 3px dashed #cbd5e0;
+        border-radius: 10px;
+        padding: 40px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        margin-bottom: 20px;
+    }
+
+    .upload-zone:hover {
+        border-color: #667eea;
+        background: #f7fafc;
+    }
+
+    .upload-zone.dragover {
+        border-color: #667eea;
+        background: #e6f0ff;
+    }
+
+    .preview-image {
+        max-width: 100%;
+        max-height: 400px;
+        margin: 20px 0;
+        border-radius: 10px;
+    }
+
+    .processing-text {
+        color: #667eea;
+        font-weight: 600;
+        margin: 15px 0;
+    }
+
+    .submit-btn {
+        width: 100%;
+        padding: 15px;
+        background: #48bb78;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 1.1em;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .submit-btn:hover {
+        background: #38a169;
+    }
+
+    .tab-buttons {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .tab-btn {
+        flex: 1;
+        padding: 12px;
+        background: #e2e8f0;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s;
+    }
+
+    .tab-btn.active {
+        background: #667eea;
+        color: white;
+    }
+
+    .tab-content {
+        display: none;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+
+    /* Album Art Upload Preview */
+    .album-art-preview {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-top: 10px;
+        display: none;
+    }
+
+    .album-art-preview.show {
+        display: block;
+    }
+
+    /* Tuner Modal - TunerPro Style */
+    .tuner-screen {
+        background: #1a1a1a;
+        border-radius: 15px;
+        padding: 20px;
+        color: white;
+    }
+
+    .tuner-current-note {
+        text-align: center;
+        font-size: 3em;
+        font-weight: 700;
+        color: #ff6b35;
+        margin: 20px 0 10px 0;
+    }
+
+    .tuner-frequency {
+        text-align: center;
+        font-size: 1.5em;
+        color: #a0aec0;
+        margin-bottom: 20px;
+    }
+
+    .tuner-instruction {
+        text-align: center;
+        font-size: 1.3em;
+        font-weight: 600;
+        color: #ff6b35;
+        margin-bottom: 20px;
+        min-height: 30px;
+    }
+
+    /* Circular Gauge Meter - Simplified */
+    .gauge-container {
+        position: relative;
+        width: 100%;
+        max-width: 400px;
+        margin: 20px auto;
+    }
+
+    .tuner-meter-bar {
+        width: 100%;
+        height: 60px;
+        background: linear-gradient(to right, #f56565 0%, #ed8936 25%, #48bb78 50%, #ed8936 75%, #ff8c42 100%);
+        border-radius: 30px;
+        position: relative;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    .tuner-needle-container {
+        position: absolute;
+        left: 50%;
+        top: -10px;
+        transform: translateX(-50%);
+        transition: left 0.15s ease-out;
+    }
+
+    .tuner-needle-stick {
+        width: 6px;
+        height: 80px;
+        background: white;
+        margin: 0 auto;
+        border-radius: 3px;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        transition: all 0.3s;
+    }
+
+    .tuner-needle-stick.in-tune {
+        background: #48bb78;
+        width: 12px;
+        box-shadow: 0 0 20px rgba(72, 187, 120, 1);
+        animation: needlePulse 0.6s ease-in-out infinite;
+    }
+
+    @keyframes needlePulse {
+        0%, 100% {
+            transform: scaleY(1);
+        }
+        50% {
+            transform: scaleY(1.2);
+        }
+    }
+
+    .tuner-meter-marks {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 15px 0 15px;
+        font-size: 0.9em;
+        color: #a0aec0;
+        font-weight: 600;
+    }
+
+    .tuner-meter-marks .center-mark {
+        color: #48bb78;
+        font-size: 1.1em;
+    }
+
+    .gauge-cents-display {
+        position: absolute;
+        top: 50%;
+        right: 10%;
+        background: #ff6b35;
+        color: white;
+        padding: 8px 15px;
+        border-radius: 20px;
+        font-size: 1.2em;
+        font-weight: 700;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    /* Guitar Headstock Design */
+    .guitar-headstock {
+        position: relative;
+        width: 100%;
+        max-width: 450px;
+        margin: 30px auto;
+        padding: 20px;
+    }
+
+    .headstock-body {
+        background: linear-gradient(135deg, #8B4513 0%, #CD853F 50%, #8B4513 100%);
+        border-radius: 100px 100px 20px 20px;
+        padding: 50px 40px;
+        position: relative;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .headstock-logo {
+        text-align: center;
+        color: rgba(139, 69, 19, 0.4);
+        font-size: 1.5em;
+        font-weight: 700;
+        margin-bottom: 40px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .tuning-pegs {
+        display: flex;
+        flex-direction: column;
+        gap: 35px;
+    }
+
+    .peg-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+    }
+
+    .string-line {
+        position: absolute;
+        left: 50px;
+        right: 50px;
+        height: 3px;
+        background: linear-gradient(to right, rgba(255,255,255,0.2), rgba(255,255,255,0.5), rgba(255,255,255,0.2));
+        pointer-events: none;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .tuning-peg {
+        width: 75px;
+        height: 75px;
+        background: radial-gradient(circle, #3a3a3a 0%, #2d2d2d 70%);
+        border: 4px solid #1a1a1a;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 2em;
+        font-weight: 700;
+        color: #e2e8f0;
+        position: relative;
+        z-index: 10;
+        box-shadow: 0 6px 12px rgba(0,0,0,0.5), inset 0 2px 4px rgba(255,255,255,0.1);
+    }
+
+    .tuning-peg::before {
+        content: '';
+        position: absolute;
+        width: 30%;
+        height: 30%;
+        background: rgba(255,255,255,0.1);
+        border-radius: 50%;
+        top: 15%;
+        left: 15%;
+    }
+
+    .tuning-peg:hover {
+        background: radial-gradient(circle, #4a4a4a 0%, #3a3a3a 70%);
+        transform: scale(1.05);
+    }
+
+    .tuning-peg.active {
+        background: radial-gradient(circle, #667eea 0%, #5568d3 70%);
+        border-color: #48bb78;
+        color: white;
+        transform: scale(1.1);
+        box-shadow: 0 0 25px rgba(102, 126, 234, 0.8), 0 6px 12px rgba(0,0,0,0.5);
+        animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% {
+            box-shadow: 0 0 25px rgba(102, 126, 234, 0.8);
+        }
+        50% {
+            box-shadow: 0 0 35px rgba(102, 126, 234, 1);
+        }
+    }
+
+    .tuning-peg.left {
+        margin-right: auto;
+    }
+
+    .tuning-peg.right {
+        margin-left: auto;
+    }
+
+    .hidden {
+        display: none !important;
+    }
+
+    @media print {
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-
-        .category-screen {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .category-screen h1 {
-            color: white;
-            font-size: 3em;
-            margin-bottom: 50px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .category-buttons {
-            display: flex;
-            gap: 30px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .category-btn {
-            padding: 40px 60px;
-            font-size: 1.8em;
             background: white;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            transition: all 0.3s;
-            font-weight: 600;
-            color: #667eea;
         }
-
-        .category-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.3);
-        }
-
-        .tuner-btn-home {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            padding: 15px 30px;
-            background: rgba(255,255,255,0.2);
-            color: white;
-            border: 2px solid white;
-            border-radius: 10px;
-            font-size: 1.1em;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .tuner-btn-home:hover {
-            background: rgba(255,255,255,0.3);
-        }
-
-        .app-screen {
-            display: none;
-            padding: 20px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .app-header {
-            background: rgba(255,255,255,0.1);
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .back-btn {
-            padding: 12px 25px;
-            background: rgba(255,255,255,0.9);
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1em;
-            font-weight: 600;
-            color: #667eea;
-        }
-
-        .app-title {
-            color: white;
-            font-size: 2em;
-            flex: 1;
-            text-align: center;
-        }
-
-        .header-controls {
-            display: flex;
-            gap: 10px;
-        }
-
-        .icon-btn {
-            padding: 12px 20px;
-            background: rgba(255,255,255,0.2);
-            border: 2px solid white;
-            border-radius: 8px;
-            color: white;
-            cursor: pointer;
-            font-size: 1em;
-            transition: all 0.3s;
-        }
-
-        .icon-btn:hover {
-            background: rgba(255,255,255,0.3);
-        }
-
-        .browse-options {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .browse-btn {
-            flex: 1;
-            min-width: 150px;
-            padding: 15px;
-            background: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 1.1em;
-            font-weight: 600;
-            transition: all 0.3s;
-            color: #667eea;
-        }
-
-        .browse-btn.active {
-            background: #667eea;
-            color: white;
-        }
-
-        .controls {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .search-box {
-            flex: 1;
-            min-width: 250px;
-            padding: 15px;
-            font-size: 16px;
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .add-song-btn {
-            padding: 15px 30px;
-            background: #48bb78;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: all 0.3s;
-        }
-
-        .add-song-btn:hover {
-            background: #38a169;
-        }
-
-        .shuffle-btn {
-            padding: 15px 30px;
-            background: #f56565;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .songs-container {
-            background: rgba(255,255,255,0.95);
-            border-radius: 15px;
-            padding: 20px;
-            max-height: 70vh;
-            overflow-y: auto;
-        }
-
-        .songs-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .song-item {
-            padding: 15px;
-            background: #f7fafc;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .song-item:hover {
-            background: #e2e8f0;
-            transform: translateX(5px);
-        }
-
-        .song-item img {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-
-        .song-item-info {
-            flex: 1;
-        }
-
-        .song-item-title {
-            font-size: 1.2em;
-            font-weight: 600;
-            color: #2d3748;
-        }
-
-        .song-item-artist {
-            color: #718096;
-            font-size: 0.9em;
-        }
-
-        .artist-group {
-            margin-bottom: 30px;
-        }
-
-        .artist-header {
-            font-size: 1.5em;
-            font-weight: 700;
-            color: #667eea;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #667eea;
-        }
-
-        .song-view-screen {
-            display: none;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .song-view-header {
-            background: rgba(255,255,255,0.95);
-            padding: 25px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-        }
-
-        .song-view-controls {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .control-btn {
-            padding: 10px 20px;
-            background: #667eea;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.95em;
-            transition: all 0.3s;
-        }
-
-        .control-btn:hover {
-            background: #5568d3;
-        }
-
-        .song-info-section {
-            display: flex;
-            gap: 20px;
-            align-items: flex-start;
-            margin-bottom: 20px;
-        }
-
-        .song-album-art {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-
-        .song-details {
-            flex: 1;
-        }
-
-        .song-title-view {
-            font-size: 2em;
-            font-weight: 700;
-            color: #2d3748;
-            margin-bottom: 10px;
-        }
-
-        .song-artist-view {
-            font-size: 1.3em;
-            color: #718096;
-            margin-bottom: 15px;
-        }
-
-        .capo-info {
-            display: inline-block;
-            padding: 8px 15px;
-            background: #fbd38d;
-            border-radius: 8px;
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-
-        .chords-list {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            padding: 15px;
-            background: #edf2f7;
-            border-radius: 10px;
-        }
-
-        .chord-tag {
-            padding: 8px 15px;
-            background: #667eea;
-            color: white;
-            border-radius: 6px;
-            font-weight: 600;
-            font-family: 'Courier New', monospace;
-        }
-
-        .capo-transpose {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            margin: 15px 0;
-        }
-
-        .capo-transpose label {
-            font-weight: 600;
-        }
-
-        .capo-select {
-            padding: 8px 12px;
-            border-radius: 6px;
-            border: 2px solid #667eea;
-            font-size: 1em;
-        }
-
-        .song-content {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            font-family: 'Courier New', monospace;
-            line-height: 1.8;
-            white-space: pre-wrap;
-            overflow-x: auto;
-        }
-
-        .chord-line {
-            color: #e53e3e;
-            font-weight: 700;
-            font-size: var(--text-size, 16px);
-            letter-spacing: 0.5px;
-        }
-
-        .lyric-line {
-            color: #2d3748;
-            font-size: var(--text-size, 16px);
-        }
-
+        .song-view-controls,
+        .scroll-controls,
         .youtube-container {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-        }
-
-        .youtube-player {
-            width: 100%;
-            aspect-ratio: 16/9;
-            border-radius: 10px;
-        }
-
-        .scroll-controls {
-            background: rgba(255,255,255,0.95);
-            padding: 20px;
-            border-radius: 15px;
-            display: flex;
-            gap: 15px;
-            align-items: center;
-            flex-wrap: wrap;
-            position: sticky;
-            bottom: 20px;
-            box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
-        }
-
-        .scroll-btn {
-            padding: 12px 25px;
-            background: #48bb78;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1em;
-            font-weight: 600;
-        }
-
-        .scroll-btn.stop {
-            background: #f56565;
-        }
-
-        .scroll-speed {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            flex: 1;
-        }
-
-        .speed-slider {
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .text-size-control {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .size-btn {
-            padding: 8px 15px;
-            background: #667eea;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 1000;
-            overflow-y: auto;
-            padding: 20px;
-        }
-
-        .modal.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            max-width: 800px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-        }
-
-        .modal-title {
-            font-size: 1.8em;
-            font-weight: 700;
-            color: #2d3748;
-        }
-
-        .close-modal {
-            font-size: 2em;
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #718096;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #2d3748;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            font-size: 1em;
-            font-family: inherit;
-        }
-
-        .form-group textarea {
-            font-family: 'Courier New', monospace;
-            min-height: 300px;
-            resize: vertical;
-        }
-
-        .upload-zone {
-            border: 3px dashed #cbd5e0;
-            border-radius: 10px;
-            padding: 40px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-bottom: 20px;
-        }
-
-        .upload-zone:hover {
-            border-color: #667eea;
-            background: #f7fafc;
-        }
-
-        .upload-zone.dragover {
-            border-color: #667eea;
-            background: #e6f0ff;
-        }
-
-        .preview-image {
-            max-width: 100%;
-            max-height: 400px;
-            margin: 20px 0;
-            border-radius: 10px;
-        }
-
-        .processing-text {
-            color: #667eea;
-            font-weight: 600;
-            margin: 15px 0;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 15px;
-            background: #48bb78;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.1em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .submit-btn:hover {
-            background: #38a169;
-        }
-
-        .tab-buttons {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .tab-btn {
-            flex: 1;
-            padding: 12px;
-            background: #e2e8f0;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .tab-btn.active {
-            background: #667eea;
-            color: white;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .album-art-preview {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-top: 10px;
-            display: none;
-        }
-
-        .album-art-preview.show {
-            display: block;
-        }
-
-        .tuner-screen {
-            background: #1a1a1a;
-            border-radius: 15px;
-            padding: 20px;
-            color: white;
-        }
-
-        .tuner-current-note {
-            text-align: center;
-            font-size: 3em;
-            font-weight: 700;
-            color: #ff6b35;
-            margin: 20px 0 10px 0;
-        }
-
-        .tuner-frequency {
-            text-align: center;
-            font-size: 1.5em;
-            color: #a0aec0;
-            margin-bottom: 20px;
-        }
-
-        .tuner-instruction {
-            text-align: center;
-            font-size: 1.3em;
-            font-weight: 600;
-            color: #ff6b35;
-            margin-bottom: 20px;
-            min-height: 30px;
-        }
-
-        .gauge-container {
-            position: relative;
-            width: 100%;
-            max-width: 400px;
-            margin: 20px auto;
-        }
-
-        .tuner-meter-bar {
-            width: 100%;
-            height: 60px;
-            background: linear-gradient(to right, #f56565 0%, #ed8936 25%, #48bb78 50%, #ed8936 75%, #ff8c42 100%);
-            border-radius: 30px;
-            position: relative;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        }
-
-        .tuner-needle-container {
-            position: absolute;
-            left: 50%;
-            top: -10px;
-            transform: translateX(-50%);
-            transition: left 0.15s ease-out;
-        }
-
-        .tuner-needle-stick {
-            width: 6px;
-            height: 80px;
-            background: white;
-            margin: 0 auto;
-            border-radius: 3px;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-            transition: all 0.3s;
-        }
-
-        .tuner-needle-stick.in-tune {
-            background: #48bb78;
-            width: 12px;
-            box-shadow: 0 0 20px rgba(72, 187, 120, 1);
-            animation: needlePulse 0.6s ease-in-out infinite;
-        }
-
-        @keyframes needlePulse {
-            0%, 100% {
-                transform: scaleY(1);
-            }
-            50% {
-                transform: scaleY(1.2);
-            }
-        }
-
-        .tuner-meter-marks {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 15px 0 15px;
-            font-size: 0.9em;
-            color: #a0aec0;
-            font-weight: 600;
-        }
-
-        .tuner-meter-marks .center-mark {
-            color: #48bb78;
-            font-size: 1.1em;
-        }
-
-        .gauge-cents-display {
-            position: absolute;
-            top: 50%;
-            right: 10%;
-            background: #ff6b35;
-            color: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 1.2em;
-            font-weight: 700;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        }
-
-        .guitar-headstock {
-            position: relative;
-            width: 100%;
-            max-width: 450px;
-            margin: 30px auto;
-            padding: 20px;
-        }
-
-        .headstock-body {
-            background: linear-gradient(135deg, #8B4513 0%, #CD853F 50%, #8B4513 100%);
-            border-radius: 100px 100px 20px 20px;
-            padding: 50px 40px;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .headstock-logo {
-            text-align: center;
-            color: rgba(139, 69, 19, 0.4);
-            font-size: 1.5em;
-            font-weight: 700;
-            margin-bottom: 40px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .tuning-pegs {
-            display: flex;
-            flex-direction: column;
-            gap: 35px;
-        }
-
-        .peg-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-        }
-
-        .string-line {
-            position: absolute;
-            left: 50px;
-            right: 50px;
-            height: 3px;
-            background: linear-gradient(to right, rgba(255,255,255,0.2), rgba(255,255,255,0.5), rgba(255,255,255,0.2));
-            pointer-events: none;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .tuning-peg {
-            width: 75px;
-            height: 75px;
-            background: radial-gradient(circle, #3a3a3a 0%, #2d2d2d 70%);
-            border: 4px solid #1a1a1a;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 2em;
-            font-weight: 700;
-            color: #e2e8f0;
-            position: relative;
-            z-index: 10;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.5), inset 0 2px 4px rgba(255,255,255,0.1);
-        }
-
-        .tuning-peg::before {
-            content: '';
-            position: absolute;
-            width: 30%;
-            height: 30%;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            top: 15%;
-            left: 15%;
-        }
-
-        .tuning-peg:hover {
-            background: radial-gradient(circle, #4a4a4a 0%, #3a3a3a 70%);
-            transform: scale(1.05);
-        }
-
-        .tuning-peg.active {
-            background: radial-gradient(circle, #667eea 0%, #5568d3 70%);
-            border-color: #48bb78;
-            color: white;
-            transform: scale(1.1);
-            box-shadow: 0 0 25px rgba(102, 126, 234, 0.8), 0 6px 12px rgba(0,0,0,0.5);
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                box-shadow: 0 0 25px rgba(102, 126, 234, 0.8);
-            }
-            50% {
-                box-shadow: 0 0 35px rgba(102, 126, 234, 1);
-            }
-        }
-
-        .tuning-peg.left {
-            margin-right: auto;
-        }
-
-        .tuning-peg.right {
-            margin-left: auto;
-        }
-
-        .hidden {
             display: none !important;
         }
+    }
+</style>
+```
 
-        @media print {
-            body {
-                background: white;
-            }
-            .song-view-controls,
-            .scroll-controls,
-            .youtube-container {
-                display: none !important;
-            }
-        }
-    </style>
 </head>
 <body>
+    <!-- Category Selection Screen -->
     <div class="category-screen" id="categoryScreen">
         <button class="tuner-btn-home" onclick="openTuner()">🎸 Tuner</button>
         <h1>🎸 My Guitar Chords</h1>
@@ -888,130 +907,54 @@
         </div>
     </div>
 
-    <div class="app-screen" id="appScreen">
-        <div class="app-header">
-            <button class="back-btn" onclick="goBackToCategories()">← Back</button>
-            <h2 class="app-title" id="categoryTitle">Jewish Music</h2>
-            <div class="header-controls">
-                <button class="icon-btn" onclick="openTuner()">🎸 Tuner</button>
-            </div>
-        </div>
-
-        <div class="browse-options">
-            <button class="browse-btn active" onclick="setBrowseMode('name')">Song Name (A-Z)</button>
-            <button class="browse-btn" onclick="setBrowseMode('artist')">By Artist</button>
-        </div>
-
-        <div class="controls">
-            <input type="text" class="search-box" id="searchBox" placeholder="Search songs..." oninput="searchSongs()">
-            <button class="shuffle-btn" onclick="shuffleSong()">🔀 Shuffle</button>
-            <button class="add-song-btn" onclick="openAddSongModal()">+ Add Song</button>
-        </div>
-
-        <div class="songs-container" id="songsContainer">
-            <div class="songs-list" id="songsList"></div>
+```
+<!-- Main App Screen -->
+<div class="app-screen" id="appScreen">
+    <div class="app-header">
+        <button class="back-btn" onclick="goBackToCategories()">← Back</button>
+        <h2 class="app-title" id="categoryTitle">Jewish Music</h2>
+        <div class="header-controls">
+            <button class="icon-btn" onclick="openTuner()">🎸 Tuner</button>
         </div>
     </div>
 
-    <div class="song-view-screen" id="songViewScreen">
-        <div class="song-view-header">
-            <div class="song-view-controls">
-                <button class="control-btn" onclick="closeSongView()">← Back to List</button>
-                <button class="control-btn" onclick="shuffleSong()">🔀 Next Random</button>
-                <button class="control-btn" onclick="editCurrentSong()">✏️ Edit</button>
-                <button class="control-btn" onclick="deleteCurrentSong()">🗑️ Delete</button>
-                <button class="control-btn" onclick="printSong()">🖨️ Print</button>
-            </div>
-
-            <div class="song-info-section">
-                <img id="viewAlbumArt" class="song-album-art" src="" alt="Album Art">
-                <div class="song-details">
-                    <h1 class="song-title-view" id="viewSongTitle"></h1>
-                    <p class="song-artist-view" id="viewSongArtist"></p>
-                    <div class="capo-info" id="viewCapo"></div>
-                    
-                    <div class="capo-transpose">
-                        <label>Transpose to Capo:</label>
-                        <select class="capo-select" id="capoTranspose" onchange="transposeChords()">
-                            <option value="0">No Capo</option>
-                            <option value="1">Capo 1</option>
-                            <option value="2">Capo 2</option>
-                            <option value="3">Capo 3</option>
-                            <option value="4">Capo 4</option>
-                            <option value="5">Capo 5</option>
-                            <option value="6">Capo 6</option>
-                            <option value="7">Capo 7</option>
-                            <option value="8">Capo 8</option>
-                        </select>
-                    </div>
-
-                    <div class="chords-list" id="viewChordsList"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="youtube-container" id="youtubeContainer" style="display:none;">
-            <iframe id="youtubePlayer" class="youtube-player" src="" frameborder="0" allowfullscreen></iframe>
-        </div>
-
-        <div class="song-content" id="songContent"></div>
-
-        <div class="scroll-controls">
-            <button class="scroll-btn" id="scrollBtn" onclick="toggleAutoScroll()">▶ Start Scroll</button>
-            <div class="scroll-speed">
-                <label>Speed:</label>
-                <input type="range" class="speed-slider" id="scrollSpeed" min="1" max="10" value="5">
-                <span id="speedValue">5</span>
-            </div>
-            <div class="text-size-control">
-                <button class="size-btn" onclick="changeTextSize(-2)">A-</button>
-                <button class="size-btn" onclick="changeTextSize(2)">A+</button>
-            </div>
-        </div>
+    <div class="browse-options">
+        <button class="browse-btn active" onclick="setBrowseMode('name')">Song Name (A-Z)</button>
+        <button class="browse-btn" onclick="setBrowseMode('artist')">By Artist</button>
     </div>
 
-    <div class="modal" id="songModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="modalTitle">Add New Song</h2>
-                <button class="close-modal" onclick="closeModal()">&times;</button>
-            </div>
+    <div class="controls">
+        <input type="text" class="search-box" id="searchBox" placeholder="Search songs..." oninput="searchSongs()">
+        <button class="shuffle-btn" onclick="shuffleSong()">🔀 Shuffle</button>
+        <button class="add-song-btn" onclick="openAddSongModal()">+ Add Song</button>
+    </div>
 
-            <div class="tab-buttons">
-                <button class="tab-btn active" onclick="switchTab('upload')">Upload Image</button>
-                <button class="tab-btn" onclick="switchTab('manual')">Manual Entry</button>
-            </div>
+    <div class="songs-container" id="songsContainer">
+        <div class="songs-list" id="songsList"></div>
+    </div>
+</div>
 
-            <div class="tab-content active" id="uploadTab">
-                <div class="upload-zone" id="uploadZone">
-                    <p style="font-size: 1.2em; margin-bottom: 10px;">📸 Click or Drag & Drop Image</p>
-                    <p style="color: #718096;">Upload a picture of your song with chords</p>
-                    <input type="file" id="imageUpload" accept="image/*" style="display: none;" onchange="handleImageUpload(event)">
-                </div>
-                <img id="previewImage" class="preview-image hidden" src="" alt="Preview">
-                <p id="processingText" class="processing-text hidden">Processing image...</p>
-            </div>
+<!-- Song View Screen -->
+<div class="song-view-screen" id="songViewScreen">
+    <div class="song-view-header">
+        <div class="song-view-controls">
+            <button class="control-btn" onclick="closeSongView()">← Back to List</button>
+            <button class="control-btn" onclick="shuffleSong()">🔀 Next Random</button>
+            <button class="control-btn" onclick="editCurrentSong()">✏️ Edit</button>
+            <button class="control-btn" onclick="deleteCurrentSong()">🗑️ Delete</button>
+            <button class="control-btn" onclick="printSong()">🖨️ Print</button>
+        </div>
 
-            <div class="tab-content" id="manualTab">
-                <div class="form-group">
-                    <label>Song Title*</label>
-                    <input type="text" id="songTitle" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Artist Name*</label>
-                    <input type="text" id="artistName" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Album Cover Image</label>
-                    <input type="file" id="albumImageFile" accept="image/*" onchange="handleAlbumArtUpload(event)">
-                    <img id="albumArtPreview" class="album-art-preview" src="" alt="Album Preview">
-                </div>
-
-                <div class="form-group">
-                    <label>Capo Position</label>
-                    <select id="capoPosition">
+        <div class="song-info-section">
+            <img id="viewAlbumArt" class="song-album-art" src="" alt="Album Art">
+            <div class="song-details">
+                <h1 class="song-title-view" id="viewSongTitle"></h1>
+                <p class="song-artist-view" id="viewSongArtist"></p>
+                <div class="capo-info" id="viewCapo"></div>
+                
+                <div class="capo-transpose">
+                    <label>Transpose to Capo:</label>
+                    <select class="capo-select" id="capoTranspose" onchange="transposeChords()">
                         <option value="0">No Capo</option>
                         <option value="1">Capo 1</option>
                         <option value="2">Capo 2</option>
@@ -1024,865 +967,1001 @@
                     </select>
                 </div>
 
-                <div class="form-group">
-                    <label>YouTube URL</label>
-                    <input type="text" id="youtubeUrl" placeholder="https://www.youtube.com/watch?v=...">
-                </div>
+                <div class="chords-list" id="viewChordsList"></div>
+            </div>
+        </div>
+    </div>
 
-                <div class="form-group">
-                    <label>Lyrics with Chords*</label>
-                    <textarea id="lyricsChords" placeholder="Type chords on their own line, then lyrics below:
+    <div class="youtube-container" id="youtubeContainer" style="display:none;">
+        <iframe id="youtubePlayer" class="youtube-player" src="" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <div class="song-content" id="songContent"></div>
+
+    <div class="scroll-controls">
+        <button class="scroll-btn" id="scrollBtn" onclick="toggleAutoScroll()">▶ Start Scroll</button>
+        <div class="scroll-speed">
+            <label>Speed:</label>
+            <input type="range" class="speed-slider" id="scrollSpeed" min="1" max="20" value="5">
+            <span id="speedValue">5</span>
+        </div>
+        <div class="text-size-control">
+            <button class="size-btn" onclick="changeTextSize(-2)">A-</button>
+            <button class="size-btn" onclick="changeTextSize(2)">A+</button>
+        </div>
+    </div>
+</div>
+
+<!-- Add/Edit Song Modal -->
+<div class="modal" id="songModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title" id="modalTitle">Add New Song</h2>
+            <button class="close-modal" onclick="closeModal()">&times;</button>
+        </div>
+
+        <div class="tab-buttons">
+            <button class="tab-btn active" onclick="switchTab('upload')">Upload Image</button>
+            <button class="tab-btn" onclick="switchTab('manual')">Manual Entry</button>
+        </div>
+
+        <div class="tab-content active" id="uploadTab">
+            <div class="upload-zone" id="uploadZone">
+                <p style="font-size: 1.2em; margin-bottom: 10px;">📸 Click or Drag & Drop Image</p>
+                <p style="color: #718096;">Upload a picture of your song with chords</p>
+                <input type="file" id="imageUpload" accept="image/*" style="display: none;" onchange="handleImageUpload(event)">
+            </div>
+            <img id="previewImage" class="preview-image hidden" src="" alt="Preview">
+            <p id="processingText" class="processing-text hidden">Processing image...</p>
+        </div>
+
+        <div class="tab-content" id="manualTab">
+            <div class="form-group">
+                <label>Song Title*</label>
+                <input type="text" id="songTitle" required>
+            </div>
+
+            <div class="form-group">
+                <label>Artist Name*</label>
+                <input type="text" id="artistName" required>
+            </div>
+
+            <div class="form-group">
+                <label>Album Cover Image</label>
+                <input type="file" id="albumImageFile" accept="image/*" onchange="handleAlbumArtUpload(event)">
+                <img id="albumArtPreview" class="album-art-preview" src="" alt="Album Preview">
+            </div>
+
+            <div class="form-group">
+                <label>Capo Position</label>
+                <select id="capoPosition">
+                    <option value="0">No Capo</option>
+                    <option value="1">Capo 1</option>
+                    <option value="2">Capo 2</option>
+                    <option value="3">Capo 3</option>
+                    <option value="4">Capo 4</option>
+                    <option value="5">Capo 5</option>
+                    <option value="6">Capo 6</option>
+                    <option value="7">Capo 7</option>
+                    <option value="8">Capo 8</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>YouTube URL</label>
+                <input type="text" id="youtubeUrl" placeholder="https://www.youtube.com/watch?v=...">
+            </div>
+
+            <div class="form-group">
+                <label>Lyrics with Chords*</label>
+                <textarea id="lyricsChords" placeholder="Type chords on their own line, then lyrics below:
+```
 
 C
 Why must I go to bed at 8
 F                    G
-When Esti's up till 9?"></textarea>
-                </div>
+When Esti’s up till 9?”></textarea>
+</div>
 
-                <button class="submit-btn" onclick="saveSong()">Save Song</button>
+```
+            <button class="submit-btn" onclick="saveSong()">Save Song</button>
+        </div>
+    </div>
+</div>
+
+<!-- Tuner Modal -->
+<div class="modal" id="tunerModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Guitar Tuner</h2>
+            <button class="close-modal" onclick="closeTuner()">&times;</button>
+        </div>
+
+        <div class="tuner-screen">
+            <div class="tuner-instruction" id="tunerInstruction">Select a string to tune</div>
+            
+            <!-- Horizontal Bar Meter -->
+            <div class="gauge-container">
+                <div class="tuner-meter-bar">
+                    <div class="tuner-needle-container" id="needleContainer">
+                        <div class="tuner-needle-stick" id="needleStick"></div>
+                    </div>
+                </div>
+                <div class="tuner-meter-marks">
+                    <span>-20</span>
+                    <span>-10</span>
+                    <span class="center-mark">0</span>
+                    <span>+10</span>
+                    <span>+20</span>
+                </div>
+                <div class="gauge-cents-display" id="gaugeCentsDisplay" style="display: none;">0</div>
+            </div>
+
+            <div class="tuner-current-note" id="tunerCurrentNote">-</div>
+            <div class="tuner-frequency" id="tunerFrequency">- Hz</div>
+            
+            <div class="guitar-headstock">
+                <div class="headstock-body">
+                    <div class="headstock-logo">TunerPro</div>
+                    <div class="tuning-pegs">
+                        <div class="peg-row">
+                            <div class="string-line"></div>
+                            <button class="tuning-peg left" onclick="selectString('D', 146.83, this)">D</button>
+                            <button class="tuning-peg right" onclick="selectString('G', 196.00, this)">G</button>
+                        </div>
+                        <div class="peg-row">
+                            <div class="string-line"></div>
+                            <button class="tuning-peg left" onclick="selectString('A', 110.00, this)">A</button>
+                            <button class="tuning-peg right" onclick="selectString('B', 246.94, this)">B</button>
+                        </div>
+                        <div class="peg-row">
+                            <div class="string-line"></div>
+                            <button class="tuning-peg left" onclick="selectString('E', 82.41, this)">E</button>
+                            <button class="tuning-peg right" onclick="selectString('e', 329.63, this)">e</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="modal" id="tunerModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">Guitar Tuner</h2>
-                <button class="close-modal" onclick="closeTuner()">&times;</button>
-            </div>
+<script>
+    // Global State
+    let appState = {
+        currentCategory: null,
+        browseMode: 'name',
+        songs: [],
+        currentSong: null,
+        isScrolling: false,
+        scrollInterval: null,
+        textSize: 16,
+        editingId: null,
+        tunerActive: false,
+        audioContext: null,
+        analyser: null,
+        targetFrequency: null,
+        selectedString: null,
+        currentAlbumArtData: null,
+        mediaStream: null,
+        lastTuneTime: 0
+    };
 
-            <div class="tuner-screen">
-                <div class="tuner-instruction" id="tunerInstruction">Select a string to tune</div>
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+        loadSongs();
+        setupUploadZone();
+        document.getElementById('scrollSpeed').addEventListener('input', (e) => {
+            document.getElementById('speedValue').textContent = e.target.value;
+        });
+    });
+
+    // Storage Functions
+    function loadSongs() {
+        const stored = localStorage.getItem('guitarChordsSongs');
+        if (stored) {
+            appState.songs = JSON.parse(stored);
+        }
+    }
+
+    function saveSongs() {
+        localStorage.setItem('guitarChordsSongs', JSON.stringify(appState.songs));
+    }
+
+    // Category Selection
+    function selectCategory(category) {
+        appState.currentCategory = category;
+        document.getElementById('categoryScreen').style.display = 'none';
+        document.getElementById('appScreen').style.display = 'block';
+        document.getElementById('categoryTitle').textContent = 
+            category === 'jewish' ? 'Jewish Music' : 'Non-Jewish Music';
+        displaySongs();
+    }
+
+    function goBackToCategories() {
+        document.getElementById('appScreen').style.display = 'none';
+        document.getElementById('categoryScreen').style.display = 'flex';
+        appState.currentCategory = null;
+    }
+
+    // Browse Mode
+    function setBrowseMode(mode) {
+        appState.browseMode = mode;
+        document.querySelectorAll('.browse-btn').forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+        displaySongs();
+    }
+
+    // Display Songs
+    function displaySongs() {
+        const container = document.getElementById('songsList');
+        const filtered = appState.songs.filter(s => s.category === appState.currentCategory);
+        
+        container.innerHTML = '';
+
+        if (filtered.length === 0) {
+            container.innerHTML = '<p style="text-align:center;color:#718096;padding:40px;">No songs yet. Add your first song!</p>';
+            return;
+        }
+
+        if (appState.browseMode === 'name') {
+            const sorted = filtered.sort((a, b) => a.title.localeCompare(b.title));
+            sorted.forEach(song => {
+                container.appendChild(createSongItem(song));
+            });
+        } else {
+            const byArtist = {};
+            filtered.forEach(song => {
+                if (!byArtist[song.artist]) {
+                    byArtist[song.artist] = [];
+                }
+                byArtist[song.artist].push(song);
+            });
+
+            const sortedArtists = Object.keys(byArtist).sort();
+            sortedArtists.forEach(artist => {
+                const group = document.createElement('div');
+                group.className = 'artist-group';
                 
-                <div class="gauge-container">
-                    <div class="tuner-meter-bar">
-                        <div class="tuner-needle-container" id="needleContainer">
-                            <div class="tuner-needle-stick" id="needleStick"></div>
-                        </div>
-                    </div>
-                    <div class="tuner-meter-marks">
-                        <span>-20</span>
-                        <span>-10</span>
-                        <span class="center-mark">0</span>
-                        <span>+10</span>
-                        <span>+20</span>
-                    </div>
-                    <div class="gauge-cents-display" id="gaugeCentsDisplay" style="display: none;">0</div>
-                </div>
+                const header = document.createElement('div');
+                header.className = 'artist-header';
+                header.textContent = artist;
+                group.appendChild(header);
 
-                <div class="tuner-current-note" id="tunerCurrentNote">-</div>
-                <div class="tuner-frequency" id="tunerFrequency">- Hz</div>
-                
-                <div class="guitar-headstock">
-                    <div class="headstock-body">
-                        <div class="headstock-logo">TunerPro</div>
-                        <div class="tuning-pegs">
-                            <div class="peg-row">
-                                <div class="string-line"></div>
-                                <button class="tuning-peg left" onclick="selectString('D', 146.83, this)">D</button>
-                                <button class="tuning-peg right" onclick="selectString('G', 196.00, this)">G</button>
-                            </div>
-                            <div class="peg-row">
-                                <div class="string-line"></div>
-                                <button class="tuning-peg left" onclick="selectString('A', 110.00, this)">A</button>
-                                <button class="tuning-peg right" onclick="selectString('B', 246.94, this)">B</button>
-                            </div>
-                            <div class="peg-row">
-                                <div class="string-line"></div>
-                                <button class="tuning-peg left" onclick="selectString('E', 82.41, this)">E</button>
-                                <button class="tuning-peg right" onclick="selectString('e', 329.63, this)">e</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                byArtist[artist].sort((a, b) => a.title.localeCompare(b.title))
+                    .forEach(song => {
+                        group.appendChild(createSongItem(song));
+                    });
 
-    <script>
-        let appState = {
-            currentCategory: null,
-            browseMode: 'name',
-            songs: [],
-            currentSong: null,
-            isScrolling: false,
-            scrollInterval: null,
-            textSize: 16,
-            editingId: null,
-            tunerActive: false,
-            audioContext: null,
-            analyser: null,
-            targetFrequency: null,
-            selectedString: null,
-            currentAlbumArtData: null,
-            mediaStream: null,
-            lastTuneTime: 0
+                container.appendChild(group);
+            });
+        }
+    }
+
+    function createSongItem(song) {
+        const item = document.createElement('div');
+        item.className = 'song-item';
+        item.onclick = () => openSong(song);
+
+        const img = document.createElement('img');
+        img.src = song.albumArt || 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60"><rect fill="%23e2e8f0" width="60" height="60"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="%23718096" font-size="24">🎵</text></svg>';
+        img.onerror = function() {
+            this.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60"><rect fill="%23e2e8f0" width="60" height="60"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="%23718096" font-size="24">🎵</text></svg>';
         };
 
-        document.addEventListener('DOMContentLoaded', () => {
-            loadSongs();
-            setupUploadZone();
-            document.getElementById('scrollSpeed').addEventListener('input', (e) => {
-                document.getElementById('speedValue').textContent = e.target.value;
-            });
+        const info = document.createElement('div');
+        info.className = 'song-item-info';
+        info.innerHTML = `
+            <div class="song-item-title">${song.title}</div>
+            <div class="song-item-artist">${song.artist}</div>
+        `;
+
+        item.appendChild(img);
+        item.appendChild(info);
+        return item;
+    }
+
+    // Search
+    function searchSongs() {
+        const query = document.getElementById('searchBox').value.toLowerCase();
+        const items = document.querySelectorAll('.song-item');
+        
+        items.forEach(item => {
+            const text = item.textContent.toLowerCase();
+            item.style.display = text.includes(query) ? 'flex' : 'none';
         });
+    }
 
-        function loadSongs() {
-            const stored = localStorage.getItem('guitarChordsSongs');
-            if (stored) {
-                appState.songs = JSON.parse(stored);
-            }
+    // Shuffle
+    function shuffleSong() {
+        const filtered = appState.songs.filter(s => s.category === appState.currentCategory);
+        if (filtered.length === 0) {
+            alert('No songs in this category yet!');
+            return;
         }
+        const random = filtered[Math.floor(Math.random() * filtered.length)];
+        openSong(random);
+    }
 
-        function saveSongs() {
-            localStorage.setItem('guitarChordsSongs', JSON.stringify(appState.songs));
-        }
-
-        function selectCategory(category) {
-            appState.currentCategory = category;
-            document.getElementById('categoryScreen').style.display = 'none';
-            document.getElementById('appScreen').style.display = 'block';
-            document.getElementById('categoryTitle').textContent = 
-                category === 'jewish' ? 'Jewish Music' : 'Non-Jewish Music';
-            displaySongs();
-        }
-
-        function goBackToCategories() {
-            document.getElementById('appScreen').style.display = 'none';
-            document.getElementById('categoryScreen').style.display = 'flex';
-            appState.currentCategory = null;
-        }
-
-        function setBrowseMode(mode) {
-            appState.browseMode = mode;
-            document.querySelectorAll('.browse-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            displaySongs();
-        }
-
-        function displaySongs() {
-            const container = document.getElementById('songsList');
-            const filtered = appState.songs.filter(s => s.category === appState.currentCategory);
-            
-            container.innerHTML = '';
-
-            if (filtered.length === 0) {
-                container.innerHTML = '<p style="text-align:center;color:#718096;padding:40px;">No songs yet. Add your first song!</p>';
-                return;
-            }
-
-            if (appState.browseMode === 'name') {
-                const sorted = filtered.sort((a, b) => a.title.localeCompare(b.title));
-                sorted.forEach(song => {
-                    container.appendChild(createSongItem(song));
-                });
-            } else {
-                const byArtist = {};
-                filtered.forEach(song => {
-                    if (!byArtist[song.artist]) {
-                        byArtist[song.artist] = [];
-                    }
-                    byArtist[song.artist].push(song);
-                });
-
-                const sortedArtists = Object.keys(byArtist).sort();
-                sortedArtists.forEach(artist => {
-                    const group = document.createElement('div');
-                    group.className = 'artist-group';
-                    
-                    const header = document.createElement('div');
-                    header.className = 'artist-header';
-                    header.textContent = artist;
-                    group.appendChild(header);
-
-                    byArtist[artist].sort((a, b) => a.title.localeCompare(b.title))
-                        .forEach(song => {
-                            group.appendChild(createSongItem(song));
-                        });
-
-                    container.appendChild(group);
-                });
-            }
-        }
-
-        function createSongItem(song) {
-            const item = document.createElement('div');
-            item.className = 'song-item';
-            item.onclick = () => openSong(song);
-
-            const img = document.createElement('img');
-            img.src = song.albumArt || 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60"><rect fill="%23e2e8f0" width="60" height="60"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="%23718096" font-size="24">🎵</text></svg>';
-            img.onerror = function() {
-                this.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60"><rect fill="%23e2e8f0" width="60" height="60"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="%23718096" font-size="24">🎵</text></svg>';
-            };
-
-            const info = document.createElement('div');
-            info.className = 'song-item-info';
-            info.innerHTML = `
-                <div class="song-item-title">${song.title}</div>
-                <div class="song-item-artist">${song.artist}</div>
-            `;
-
-            item.appendChild(img);
-            item.appendChild(info);
-            return item;
-        }
-
-        function searchSongs() {
-            const query = document.getElementById('searchBox').value.toLowerCase();
-            const items = document.querySelectorAll('.song-item');
-            
-            items.forEach(item => {
-                const text = item.textContent.toLowerCase();
-                item.style.display = text.includes(query) ? 'flex' : 'none';
-            });
-        }
-
-        function shuffleSong() {
-            const filtered = appState.songs.filter(s => s.category === appState.currentCategory);
-            if (filtered.length === 0) {
-                alert('No songs in this category yet!');
-                return;
-            }
-            const random = filtered[Math.floor(Math.random() * filtered.length)];
-            openSong(random);
-        }
-
-        function openSong(song) {
-            appState.currentSong = song;
-            
-            const savedTranspose = localStorage.getItem(`transpose_${song.id}`);
-            const capoValue = savedTranspose !== null ? parseInt(savedTranspose) : song.capo;
-            
-            document.getElementById('appScreen').style.display = 'none';
-            document.getElementById('songViewScreen').style.display = 'block';
-            
-            document.getElementById('viewSongTitle').textContent = song.title;
-            document.getElementById('viewSongArtist').textContent = song.artist;
-            document.getElementById('viewCapo').textContent = `Original Capo: ${song.capo}`;
-            document.getElementById('viewAlbumArt').src = song.albumArt || 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150"><rect fill="%23e2e8f0" width="150" height="150"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="%23718096" font-size="48">🎵</text></svg>';
-            
-            document.getElementById('capoTranspose').value = capoValue;
-            
-            if (song.youtube) {
-                const videoId = extractYouTubeId(song.youtube);
-                if (videoId) {
-                    document.getElementById('youtubeContainer').style.display = 'block';
-                    document.getElementById('youtubePlayer').src = `https://www.youtube.com/embed/${videoId}`;
-                } else {
-                    document.getElementById('youtubeContainer').style.display = 'none';
-                }
+    // Open Song
+    function openSong(song) {
+        appState.currentSong = song;
+        
+        const savedTranspose = localStorage.getItem(`transpose_${song.id}`);
+        const capoValue = savedTranspose !== null ? parseInt(savedTranspose) : song.capo;
+        
+        document.getElementById('appScreen').style.display = 'none';
+        document.getElementById('songViewScreen').style.display = 'block';
+        
+        document.getElementById('viewSongTitle').textContent = song.title;
+        document.getElementById('viewSongArtist').textContent = song.artist;
+        document.getElementById('viewCapo').textContent = `Original Capo: ${song.capo}`;
+        document.getElementById('viewAlbumArt').src = song.albumArt || 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150"><rect fill="%23e2e8f0" width="150" height="150"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="%23718096" font-size="48">🎵</text></svg>';
+        
+        document.getElementById('capoTranspose').value = capoValue;
+        
+        // YouTube
+        if (song.youtube) {
+            const videoId = extractYouTubeId(song.youtube);
+            if (videoId) {
+                document.getElementById('youtubeContainer').style.display = 'block';
+                document.getElementById('youtubePlayer').src = `https://www.youtube-nocookie.com/embed/${videoId}`;
             } else {
                 document.getElementById('youtubeContainer').style.display = 'none';
             }
-            
-            displaySongContent(song, capoValue);
-            updateChordsList(song, capoValue);
+        } else {
+            document.getElementById('youtubeContainer').style.display = 'none';
         }
+        
+        displaySongContent(song, capoValue);
+        updateChordsList(song, capoValue);
+    }
 
-        function extractYouTubeId(url) {
-            const patterns = [
-                /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/,
-                /youtube\.com\/embed\/([^&\s]+)/
-            ];
-            
-            for (const pattern of patterns) {
-                const match = url.match(pattern);
-                if (match) return match[1];
+    function extractYouTubeId(url) {
+        const patterns = [
+            /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/,
+            /youtube\.com\/embed\/([^&\s]+)/
+        ];
+        
+        for (const pattern of patterns) {
+            const match = url.match(pattern);
+            if (match) return match[1];
+        }
+        return null;
+    }
+
+    function displaySongContent(song, currentCapo) {
+        const container = document.getElementById('songContent');
+        const transposeDiff = currentCapo - song.capo;
+        const lines = song.lyrics.split('\n');
+        
+        let html = '';
+        lines.forEach(line => {
+            if (isChordLine(line)) {
+                const transposed = transposeLine(line, transposeDiff);
+                html += `<div class="chord-line">${transposed}</div>`;
+            } else {
+                html += `<div class="lyric-line">${line}</div>`;
             }
-            return null;
-        }
+        });
+        
+        container.innerHTML = html;
+        container.style.setProperty('--text-size', `${appState.textSize}px`);
+    }
 
-        function displaySongContent(song, currentCapo) {
-            const container = document.getElementById('songContent');
-            const transposeDiff = currentCapo - song.capo;
-            const lines = song.lyrics.split('\n');
-            
-            let html = '';
-            lines.forEach(line => {
-                if (isChordLine(line)) {
-                    const transposed = transposeLine(line, transposeDiff);
-                    html += `<div class="chord-line">${transposed}</div>`;
-                } else {
-                    html += `<div class="lyric-line">${line}</div>`;
+    function isChordLine(line) {
+        const chordPattern = /\b[A-G](#|b)?(m|maj|min|dim|aug|sus|add)?[0-9]?(?![a-z])/;
+        const words = line.trim().split(/\s+/);
+        if (words.length === 0) return false;
+        
+        const chordWords = words.filter(w => chordPattern.test(w));
+        return chordWords.length > 0 && chordWords.length / words.length > 0.5;
+    }
+
+    function transposeLine(line, semitones) {
+        if (semitones === 0) return line;
+        
+        const chordPattern = /\b([A-G](#|b)?)(m|maj|min|dim|aug|sus|add)?([0-9]?)\b/g;
+        
+        return line.replace(chordPattern, (match, root, modifier = '', suffix = '', number = '') => {
+            const transposed = transposeChord(root + modifier, semitones);
+            return transposed + suffix + number;
+        });
+    }
+
+    function transposeChord(chord, semitones) {
+        const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+        const flats = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
+        
+        let baseNote = chord.replace(/b|#/, '');
+        let modifier = chord.includes('#') ? '#' : (chord.includes('b') ? 'b' : '');
+        
+        let noteArray = modifier === 'b' ? flats : notes;
+        let index = noteArray.indexOf(chord);
+        
+        if (index === -1) return chord;
+        
+        let newIndex = (index + semitones + 12) % 12;
+        return noteArray[newIndex];
+    }
+
+    function updateChordsList(song, currentCapo) {
+        const container = document.getElementById('viewChordsList');
+        const transposeDiff = currentCapo - song.capo;
+        const chords = extractChords(song.lyrics, transposeDiff);
+        
+        container.innerHTML = '';
+        chords.forEach(chord => {
+            const tag = document.createElement('span');
+            tag.className = 'chord-tag';
+            tag.textContent = chord;
+            container.appendChild(tag);
+        });
+    }
+
+    function extractChords(lyrics, transposeDiff) {
+        const chordSet = new Set();
+        const lines = lyrics.split('\n');
+        const chordPattern = /\b([A-G](#|b)?)(m|maj|min|dim|aug|sus|add)?([0-9]?)\b/g;
+        
+        lines.forEach(line => {
+            if (isChordLine(line)) {
+                let match;
+                while ((match = chordPattern.exec(line)) !== null) {
+                    const fullChord = match[0];
+                    const root = match[1] + (match[2] || '');
+                    const suffix = (match[3] || '') + (match[4] || '');
+                    const transposed = transposeChord(root, transposeDiff) + suffix;
+                    chordSet.add(transposed);
                 }
-            });
-            
-            container.innerHTML = html;
-            container.style.setProperty('--text-size', `${appState.textSize}px`);
-        }
+            }
+        });
+        
+        return Array.from(chordSet);
+    }
 
-        function isChordLine(line) {
-            const chordPattern = /\b[A-G](#|b)?(m|maj|min|dim|aug|sus|add)?[0-9]?(?![a-z])/;
-            const words = line.trim().split(/\s+/);
-            if (words.length === 0) return false;
-            
-            const chordWords = words.filter(w => chordPattern.test(w));
-            return chordWords.length > 0 && chordWords.length / words.length > 0.5;
-        }
+    function transposeChords() {
+        const newCapo = parseInt(document.getElementById('capoTranspose').value);
+        localStorage.setItem(`transpose_${appState.currentSong.id}`, newCapo);
+        displaySongContent(appState.currentSong, newCapo);
+        updateChordsList(appState.currentSong, newCapo);
+    }
 
-        function transposeLine(line, semitones) {
-            if (semitones === 0) return line;
-            
-            const chordPattern = /\b([A-G](#|b)?)(m|maj|min|dim|aug|sus|add)?([0-9]?)\b/g;
-            
-            return line.replace(chordPattern, (match, root, modifier = '', suffix = '', number = '') => {
-                const transposed = transposeChord(root + modifier, semitones);
-                return transposed + suffix + number;
-            });
-        }
+    function closeSongView() {
+        document.getElementById('songViewScreen').style.display = 'none';
+        document.getElementById('appScreen').style.display = 'block';
+        stopAutoScroll();
+        document.getElementById('youtubePlayer').src = '';
+    }
 
-        function transposeChord(chord, semitones) {
-            const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-            const flats = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
-            
-            let baseNote = chord.replace(/b|#/, '');
-            let modifier = chord.includes('#') ? '#' : (chord.includes('b') ? 'b' : '');
-            
-            let noteArray = modifier === 'b' ? flats : notes;
-            let index = noteArray.indexOf(chord);
-            
-            if (index === -1) return chord;
-            
-            let newIndex = (index + semitones + 12) % 12;
-            return noteArray[newIndex];
-        }
-
-        function updateChordsList(song, currentCapo) {
-            const container = document.getElementById('viewChordsList');
-            const transposeDiff = currentCapo - song.capo;
-            const chords = extractChords(song.lyrics, transposeDiff);
-            
-            container.innerHTML = '';
-            chords.forEach(chord => {
-                const tag = document.createElement('span');
-                tag.className = 'chord-tag';
-                tag.textContent = chord;
-                container.appendChild(tag);
-            });
-        }
-
-        function extractChords(lyrics, transposeDiff) {
-            const chordSet = new Set();
-            const lines = lyrics.split('\n');
-            const chordPattern = /\b([A-G](#|b)?)(m|maj|min|dim|aug|sus|add)?([0-9]?)\b/g;
-            
-            lines.forEach(line => {
-                if (isChordLine(line)) {
-                    let match;
-                    while ((match = chordPattern.exec(line)) !== null) {
-                        const fullChord = match[0];
-                        const root = match[1] + (match[2] || '');
-                        const suffix = (match[3] || '') + (match[4] || '');
-                        const transposed = transposeChord(root, transposeDiff) + suffix;
-                        chordSet.add(transposed);
-                    }
-                }
-            });
-            
-            return Array.from(chordSet);
-        }
-
-        function transposeChords() {
-            const newCapo = parseInt(document.getElementById('capoTranspose').value);
-            localStorage.setItem(`transpose_${appState.currentSong.id}`, newCapo);
-            displaySongContent(appState.currentSong, newCapo);
-            updateChordsList(appState.currentSong, newCapo);
-        }
-
-        function closeSongView() {
-            document.getElementById('songViewScreen').style.display = 'none';
-            document.getElementById('appScreen').style.display = 'block';
+    // Auto Scroll
+    function toggleAutoScroll() {
+        if (appState.isScrolling) {
             stopAutoScroll();
-            document.getElementById('youtubePlayer').src = '';
+        } else {
+            startAutoScroll();
         }
+    }
 
-        function toggleAutoScroll() {
-            if (appState.isScrolling) {
-                stopAutoScroll();
-            } else {
-                startAutoScroll();
-            }
+    function startAutoScroll() {
+        appState.isScrolling = true;
+        document.getElementById('scrollBtn').textContent = '⏸ Stop Scroll';
+        document.getElementById('scrollBtn').classList.add('stop');
+        
+        const speed = parseInt(document.getElementById('scrollSpeed').value);
+        const scrollAmount = speed * 0.5;
+        
+        appState.scrollInterval = setInterval(() => {
+            window.scrollBy(0, scrollAmount);
+        }, 50);
+    }
+
+    function stopAutoScroll() {
+        appState.isScrolling = false;
+        document.getElementById('scrollBtn').textContent = '▶ Start Scroll';
+        document.getElementById('scrollBtn').classList.remove('stop');
+        
+        if (appState.scrollInterval) {
+            clearInterval(appState.scrollInterval);
+            appState.scrollInterval = null;
         }
+    }
 
-        function startAutoScroll() {
-            appState.isScrolling = true;
-            document.getElementById('scrollBtn').textContent = '⏸ Stop Scroll';
-            document.getElementById('scrollBtn').classList.add('stop');
-            
-            const speed = parseInt(document.getElementById('scrollSpeed').value);
-            const scrollAmount = speed * 0.5;
-            
-            appState.scrollInterval = setInterval(() => {
-                window.scrollBy(0, scrollAmount);
-            }, 50);
+    // Text Size
+    function changeTextSize(delta) {
+        appState.textSize = Math.max(12, Math.min(32, appState.textSize + delta));
+        document.getElementById('songContent').style.setProperty('--text-size', `${appState.textSize}px`);
+    }
+
+    // Print
+    function printSong() {
+        window.print();
+    }
+
+    // Modal Functions
+    function openAddSongModal() {
+        appState.editingId = null;
+        appState.currentAlbumArtData = null;
+        document.getElementById('modalTitle').textContent = 'Add New Song';
+        document.getElementById('songTitle').value = '';
+        document.getElementById('artistName').value = '';
+        document.getElementById('albumImageFile').value = '';
+        document.getElementById('albumArtPreview').classList.remove('show');
+        document.getElementById('capoPosition').value = '0';
+        document.getElementById('youtubeUrl').value = '';
+        document.getElementById('lyricsChords').value = '';
+        document.getElementById('previewImage').classList.add('hidden');
+        document.getElementById('processingText').classList.add('hidden');
+        document.getElementById('songModal').classList.add('active');
+    }
+
+    function editCurrentSong() {
+        const song = appState.currentSong;
+        appState.editingId = song.id;
+        appState.currentAlbumArtData = song.albumArt;
+        
+        document.getElementById('modalTitle').textContent = 'Edit Song';
+        document.getElementById('songTitle').value = song.title;
+        document.getElementById('artistName').value = song.artist;
+        
+        if (song.albumArt) {
+            document.getElementById('albumArtPreview').src = song.albumArt;
+            document.getElementById('albumArtPreview').classList.add('show');
         }
+        
+        document.getElementById('capoPosition').value = song.capo;
+        document.getElementById('youtubeUrl').value = song.youtube || '';
+        document.getElementById('lyricsChords').value = song.lyrics;
+        
+        switchTab('manual');
+        document.getElementById('songModal').classList.add('active');
+    }
 
-        function stopAutoScroll() {
-            appState.isScrolling = false;
-            document.getElementById('scrollBtn').textContent = '▶ Start Scroll';
-            document.getElementById('scrollBtn').classList.remove('stop');
-            
-            if (appState.scrollInterval) {
-                clearInterval(appState.scrollInterval);
-                appState.scrollInterval = null;
-            }
+    function closeModal() {
+        document.getElementById('songModal').classList.remove('active');
+        appState.editingId = null;
+        appState.currentAlbumArtData = null;
+    }
+
+    function switchTab(tab) {
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+        
+        if (tab === 'upload') {
+            document.querySelector('.tab-btn:first-child').classList.add('active');
+            document.getElementById('uploadTab').classList.add('active');
+        } else {
+            document.querySelector('.tab-btn:last-child').classList.add('active');
+            document.getElementById('manualTab').classList.add('active');
         }
+    }
 
-        function changeTextSize(delta) {
-            appState.textSize = Math.max(12, Math.min(32, appState.textSize + delta));
-            document.getElementById('songContent').style.setProperty('--text-size', `${appState.textSize}px`);
-        }
-
-        function printSong() {
-            window.print();
-        }
-
-        function openAddSongModal() {
-            appState.editingId = null;
-            appState.currentAlbumArtData = null;
-            document.getElementById('modalTitle').textContent = 'Add New Song';
-            document.getElementById('songTitle').value = '';
-            document.getElementById('artistName').value = '';
-            document.getElementById('albumImageFile').value = '';
-            document.getElementById('albumArtPreview').classList.remove('show');
-            document.getElementById('capoPosition').value = '0';
-            document.getElementById('youtubeUrl').value = '';
-            document.getElementById('lyricsChords').value = '';
-            document.getElementById('previewImage').classList.add('hidden');
-            document.getElementById('processingText').classList.add('hidden');
-            document.getElementById('songModal').classList.add('active');
-        }
-
-        function editCurrentSong() {
-            const song = appState.currentSong;
-            appState.editingId = song.id;
-            appState.currentAlbumArtData = song.albumArt;
-            
-            document.getElementById('modalTitle').textContent = 'Edit Song';
-            document.getElementById('songTitle').value = song.title;
-            document.getElementById('artistName').value = song.artist;
-            
-            if (song.albumArt) {
-                document.getElementById('albumArtPreview').src = song.albumArt;
-                document.getElementById('albumArtPreview').classList.add('show');
-            }
-            
-            document.getElementById('capoPosition').value = song.capo;
-            document.getElementById('youtubeUrl').value = song.youtube || '';
-            document.getElementById('lyricsChords').value = song.lyrics;
-            
-            switchTab('manual');
-            document.getElementById('songModal').classList.add('active');
-        }
-
-        function closeModal() {
-            document.getElementById('songModal').classList.remove('active');
-            appState.editingId = null;
-            appState.currentAlbumArtData = null;
-        }
-
-        function switchTab(tab) {
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            
-            if (tab === 'upload') {
-                document.querySelector('.tab-btn:first-child').classList.add('active');
-                document.getElementById('uploadTab').classList.add('active');
-            } else {
-                document.querySelector('.tab-btn:last-child').classList.add('active');
-                document.getElementById('manualTab').classList.add('active');
-            }
-        }
-
-        function handleAlbumArtUpload(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    appState.currentAlbumArtData = e.target.result;
-                    document.getElementById('albumArtPreview').src = e.target.result;
-                    document.getElementById('albumArtPreview').classList.add('show');
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        function setupUploadZone() {
-            const zone = document.getElementById('uploadZone');
-            const input = document.getElementById('imageUpload');
-            
-            zone.onclick = () => input.click();
-            
-            zone.ondragover = (e) => {
-                e.preventDefault();
-                zone.classList.add('dragover');
-            };
-            
-            zone.ondragleave = () => {
-                zone.classList.remove('dragover');
-            };
-            
-            zone.ondrop = (e) => {
-                e.preventDefault();
-                zone.classList.remove('dragover');
-                const file = e.dataTransfer.files[0];
-                if (file && file.type.startsWith('image/')) {
-                    processImage(file);
-                }
-            };
-        }
-
-        function handleImageUpload(event) {
-            const file = event.target.files[0];
-            if (file) {
-                processImage(file);
-            }
-        }
-
-        function processImage(file) {
+    // Album Art Upload
+    function handleAlbumArtUpload(event) {
+        const file = event.target.files[0];
+        if (file) {
             const reader = new FileReader();
             reader.onload = (e) => {
-                const preview = document.getElementById('previewImage');
-                preview.src = e.target.result;
-                preview.classList.remove('hidden');
-                
-                document.getElementById('processingText').classList.remove('hidden');
-                document.getElementById('processingText').textContent = 'Processing image...';
-                document.getElementById('processingText').style.color = '#667eea';
-                
-                Tesseract.recognize(
-                    e.target.result,
-                    'eng',
-                    {
-                        logger: m => {
-                            if (m.status === 'recognizing text') {
-                                document.getElementById('processingText').textContent = 
-                                    `Processing... ${Math.round(m.progress * 100)}%`;
-                            }
-                        },
-                        preserve_interword_spaces: '1'
-                    }
-                ).then(({ data }) => {
-                    document.getElementById('processingText').classList.add('hidden');
-                    
-                    let extractedText = '';
-                    
-                    if (data.lines && data.lines.length > 0) {
-                        data.lines.forEach(line => {
-                            if (line.words && line.words.length > 0) {
-                                let lineText = '';
-                                let lastX = 0;
-                                
-                                line.words.forEach((word, index) => {
-                                    if (index > 0) {
-                                        const spaceDiff = word.bbox.x0 - lastX;
-                                        const avgCharWidth = 10;
-                                        const numSpaces = Math.max(1, Math.round(spaceDiff / avgCharWidth));
-                                        lineText += ' '.repeat(numSpaces);
-                                    }
-                                    lineText += word.text;
-                                    lastX = word.bbox.x1;
-                                });
-                                
-                                extractedText += lineText + '\n';
-                            }
-                        });
-                    } else {
-                        extractedText = data.text;
-                    }
-                    
-                    switchTab('manual');
-                    document.getElementById('lyricsChords').value = extractedText;
-                    
-                    alert('Text extracted! Please review and adjust chord positioning if needed.');
-                }).catch(err => {
-                    console.error('OCR Error:', err);
-                    document.getElementById('processingText').textContent = 'Error processing image. Please try manual entry.';
-                    document.getElementById('processingText').style.color = '#f56565';
-                });
+                appState.currentAlbumArtData = e.target.result;
+                document.getElementById('albumArtPreview').src = e.target.result;
+                document.getElementById('albumArtPreview').classList.add('show');
             };
             reader.readAsDataURL(file);
         }
+    }
 
-        function saveSong() {
-            const title = document.getElementById('songTitle').value.trim();
-            const artist = document.getElementById('artistName').value.trim();
-            const lyrics = document.getElementById('lyricsChords').value.trim();
-            
-            if (!title || !artist || !lyrics) {
-                alert('Please fill in Song Title, Artist, and Lyrics with Chords');
-                return;
+    // Image Upload for OCR
+    function setupUploadZone() {
+        const zone = document.getElementById('uploadZone');
+        const input = document.getElementById('imageUpload');
+        
+        zone.onclick = () => input.click();
+        
+        zone.ondragover = (e) => {
+            e.preventDefault();
+            zone.classList.add('dragover');
+        };
+        
+        zone.ondragleave = () => {
+            zone.classList.remove('dragover');
+        };
+        
+        zone.ondrop = (e) => {
+            e.preventDefault();
+            zone.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                processImage(file);
             }
-            
-            const song = {
-                id: appState.editingId || Date.now().toString(),
-                category: appState.currentCategory,
-                title,
-                artist,
-                albumArt: appState.currentAlbumArtData || '',
-                capo: parseInt(document.getElementById('capoPosition').value),
-                youtube: document.getElementById('youtubeUrl').value.trim(),
-                lyrics
-            };
-            
-            if (appState.editingId) {
-                const index = appState.songs.findIndex(s => s.id === appState.editingId);
-                appState.songs[index] = song;
-            } else {
-                appState.songs.push(song);
-            }
-            
-            saveSongs();
-            closeModal();
-            
-            if (appState.editingId) {
-                openSong(song);
-            } else {
-                displaySongs();
-            }
+        };
+    }
+
+    function handleImageUpload(event) {
+        const file = event.target.files[0];
+        if (file) {
+            processImage(file);
         }
+    }
 
-        function deleteCurrentSong() {
-            if (!confirm('Are you sure you want to delete this song?')) return;
+    function processImage(file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const preview = document.getElementById('previewImage');
+            preview.src = e.target.result;
+            preview.classList.remove('hidden');
             
-            appState.songs = appState.songs.filter(s => s.id !== appState.currentSong.id);
-            saveSongs();
-            closeSongView();
+            document.getElementById('processingText').classList.remove('hidden');
+            document.getElementById('processingText').textContent = 'Processing image...';
+            document.getElementById('processingText').style.color = '#667eea';
+            
+            // OCR Processing with layout preservation
+            Tesseract.recognize(
+                e.target.result,
+                'eng',
+                {
+                    logger: m => {
+                        if (m.status === 'recognizing text') {
+                            document.getElementById('processingText').textContent = 
+                                `Processing... ${Math.round(m.progress * 100)}%`;
+                        }
+                    },
+                    preserve_interword_spaces: '1'
+                }
+            ).then(({ data }) => {
+                document.getElementById('processingText').classList.add('hidden');
+                
+                // Extract text with better spacing preservation
+                let extractedText = '';
+                
+                if (data.lines && data.lines.length > 0) {
+                    data.lines.forEach(line => {
+                        if (line.words && line.words.length > 0) {
+                            let lineText = '';
+                            let lastX = 0;
+                            
+                            line.words.forEach((word, index) => {
+                                if (index > 0) {
+                                    // Calculate spacing based on position
+                                    const spaceDiff = word.bbox.x0 - lastX;
+                                    const avgCharWidth = 8; // More accurate
+                                    const numSpaces = Math.max(1, Math.round(spaceDiff / avgCharWidth));
+                                    lineText += ' '.repeat(numSpaces);
+                                }
+                                lineText += word.text;
+                                lastX = word.bbox.x1;
+                            });
+                            
+                            extractedText += lineText + '\n';
+                        }
+                    });
+                } else {
+                    // Fallback to plain text
+                    extractedText = data.text;
+                }
+                
+                // Switch to manual tab with extracted text
+                switchTab('manual');
+                document.getElementById('lyricsChords').value = extractedText;
+                
+                alert('Text extracted! Chords should be positioned correctly. Please review before saving.');
+            }).catch(err => {
+                console.error('OCR Error:', err);
+                document.getElementById('processingText').textContent = 'Error processing image. Please try manual entry.';
+                document.getElementById('processingText').style.color = '#f56565';
+            });
+        };
+        reader.readAsDataURL(file);
+    }
+
+    // Save Song
+    function saveSong() {
+        const title = document.getElementById('songTitle').value.trim();
+        const artist = document.getElementById('artistName').value.trim();
+        const lyrics = document.getElementById('lyricsChords').value.trim();
+        
+        if (!title || !artist || !lyrics) {
+            alert('Please fill in Song Title, Artist, and Lyrics with Chords');
+            return;
+        }
+        
+        const song = {
+            id: appState.editingId || Date.now().toString(),
+            category: appState.currentCategory,
+            title,
+            artist,
+            albumArt: appState.currentAlbumArtData || '',
+            capo: parseInt(document.getElementById('capoPosition').value),
+            youtube: document.getElementById('youtubeUrl').value.trim(),
+            lyrics
+        };
+        
+        if (appState.editingId) {
+            const index = appState.songs.findIndex(s => s.id === appState.editingId);
+            appState.songs[index] = song;
+        } else {
+            appState.songs.push(song);
+        }
+        
+        saveSongs();
+        closeModal();
+        
+        if (appState.editingId) {
+            openSong(song);
+        } else {
             displaySongs();
         }
+    }
 
-        function openTuner() {
-            document.getElementById('tunerModal').classList.add('active');
-            if (!appState.audioContext) {
-                setupAudioContext();
-            }
+    function deleteCurrentSong() {
+        if (!confirm('Are you sure you want to delete this song?')) return;
+        
+        appState.songs = appState.songs.filter(s => s.id !== appState.currentSong.id);
+        saveSongs();
+        closeSongView();
+        displaySongs();
+    }
+
+    // Tuner Functions
+    function openTuner() {
+        document.getElementById('tunerModal').classList.add('active');
+        if (!appState.audioContext) {
+            setupAudioContext();
         }
+    }
 
-        function closeTuner() {
-            document.getElementById('tunerModal').classList.remove('active');
-            stopTuner();
+    function closeTuner() {
+        document.getElementById('tunerModal').classList.remove('active');
+        stopTuner();
+    }
+
+    async function setupAudioContext() {
+        try {
+            appState.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            appState.analyser = appState.audioContext.createAnalyser();
+            appState.analyser.fftSize = 4096;
+        } catch (err) {
+            console.error('Audio context error:', err);
+            alert('Unable to access audio. Please check your browser permissions.');
         }
+    }
 
-        async function setupAudioContext() {
-            try {
-                appState.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                appState.analyser = appState.audioContext.createAnalyser();
-                appState.analyser.fftSize = 4096;
-            } catch (err) {
-                console.error('Audio context error:', err);
-                alert('Unable to access audio. Please check your browser permissions.');
-            }
+    async function selectString(note, frequency, element) {
+        // Remove active from all buttons
+        document.querySelectorAll('.tuning-peg').forEach(btn => btn.classList.remove('active'));
+        element.classList.add('active');
+        
+        appState.selectedString = note;
+        appState.targetFrequency = frequency;
+        document.getElementById('tunerCurrentNote').textContent = note;
+        document.getElementById('tunerInstruction').textContent = 'Listening...';
+        document.getElementById('tunerInstruction').style.color = '#ff6b35';
+        
+        // Initialize audio context if needed
+        if (!appState.audioContext) {
+            await setupAudioContext();
         }
+        
+        // Resume audio context if suspended
+        if (appState.audioContext.state === 'suspended') {
+            await appState.audioContext.resume();
+        }
+        
+        // Stop previous stream if exists
+        if (appState.mediaStream) {
+            appState.mediaStream.getTracks().forEach(track => track.stop());
+        }
+        
+        // Start listening
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ 
+                audio: {
+                    echoCancellation: false,
+                    autoGainControl: false,
+                    noiseSuppression: false
+                } 
+            });
+            
+            appState.mediaStream = stream;
+            const source = appState.audioContext.createMediaStreamSource(stream);
+            source.connect(appState.analyser);
+            
+            appState.tunerActive = true;
+            updateTuner();
+        } catch (err) {
+            console.error('Microphone error:', err);
+            document.getElementById('tunerInstruction').textContent = 'Microphone access denied';
+            document.getElementById('tunerInstruction').style.color = '#f56565';
+            alert('Unable to access microphone. Please allow microphone access in your browser settings.');
+        }
+    }
 
-        async function selectString(note, frequency, element) {
-            document.querySelectorAll('.tuning-peg').forEach(btn => btn.classList.remove('active'));
-            element.classList.add('active');
+    function updateTuner() {
+        if (!appState.tunerActive) return;
+        
+        const bufferLength = appState.analyser.fftSize;
+        const buffer = new Float32Array(bufferLength);
+        appState.analyser.getFloatTimeDomainData(buffer);
+        
+        // Check RMS to ensure there's actual signal
+        let rms = 0;
+        for (let i = 0; i < bufferLength; i++) {
+            rms += buffer[i] * buffer[i];
+        }
+        rms = Math.sqrt(rms / bufferLength);
+        
+        // Only process if signal is strong enough
+        if (rms > 0.01) {
+            const frequency = autoCorrelate(buffer, appState.audioContext.sampleRate);
             
-            appState.selectedString = note;
-            appState.targetFrequency = frequency;
-            document.getElementById('tunerCurrentNote').textContent = note;
-            document.getElementById('tunerInstruction').textContent = 'Listening...';
-            document.getElementById('tunerInstruction').style.color = '#ff6b35';
-            
-            if (!appState.audioContext) {
-                await setupAudioContext();
-            }
-            
-            if (appState.audioContext.state === 'suspended') {
-                await appState.audioContext.resume();
-            }
-            
-            if (appState.mediaStream) {
-                appState.mediaStream.getTracks().forEach(track => track.stop());
-            }
-            
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ 
-                    audio: {
-                        echoCancellation: false,
-                        autoGainControl: false,
-                        noiseSuppression: false
-                    } 
-                });
+            if (frequency > 0 && appState.targetFrequency) {
+                const cents = 1200 * Math.log2(frequency / appState.targetFrequency);
                 
-                appState.mediaStream = stream;
-                const source = appState.audioContext.createMediaStreamSource(stream);
-                source.connect(appState.analyser);
-                
-                appState.tunerActive = true;
-                updateTuner();
-            } catch (err) {
-                console.error('Microphone error:', err);
-                document.getElementById('tunerInstruction').textContent = 'Microphone access denied';
-                document.getElementById('tunerInstruction').style.color = '#f56565';
-                alert('Unable to access microphone. Please allow microphone access in your browser settings.');
-            }
-        }
-
-        function updateTuner() {
-            if (!appState.tunerActive) return;
-            
-            const bufferLength = appState.analyser.fftSize;
-            const buffer = new Float32Array(bufferLength);
-            appState.analyser.getFloatTimeDomainData(buffer);
-            
-            let rms = 0;
-            for (let i = 0; i < bufferLength; i++) {
-                rms += buffer[i] * buffer[i];
-            }
-            rms = Math.sqrt(rms / bufferLength);
-            
-            if (rms > 0.01) {
-                const frequency = autoCorrelate(buffer, appState.audioContext.sampleRate);
-                
-                if (frequency > 0 && appState.targetFrequency) {
-                    const cents = 1200 * Math.log2(frequency / appState.targetFrequency);
-                    
-                    if (Math.abs(cents) < 1200) {
-                        updateTunerDisplay(cents, frequency);
-                    }
-                }
-            }
-            
-            requestAnimationFrame(updateTuner);
-        }
-
-        function autoCorrelate(buffer, sampleRate) {
-            const threshold = 0.1;
-            const bufferSize = buffer.length;
-            const yinBuffer = new Float32Array(bufferSize / 2);
-            
-            yinBuffer[0] = 1;
-            let runningSum = 0;
-            
-            for (let tau = 1; tau < yinBuffer.length; tau++) {
-                let sum = 0;
-                for (let i = 0; i < yinBuffer.length; i++) {
-                    const delta = buffer[i] - buffer[i + tau];
-                    sum += delta * delta;
-                }
-                yinBuffer[tau] = sum;
-            }
-            
-            for (let tau = 1; tau < yinBuffer.length; tau++) {
-                runningSum += yinBuffer[tau];
-                yinBuffer[tau] *= tau / runningSum;
-            }
-            
-            let tau = 2;
-            while (tau < yinBuffer.length) {
-                if (yinBuffer[tau] < threshold) {
-                    while (tau + 1 < yinBuffer.length && yinBuffer[tau + 1] < yinBuffer[tau]) {
-                        tau++;
-                    }
-                    break;
-                }
-                tau++;
-            }
-            
-            if (tau === yinBuffer.length || yinBuffer[tau] >= threshold) {
-                return -1;
-            }
-            
-            let betterTau;
-            const x0 = (tau < 1) ? tau : tau - 1;
-            const x2 = (tau + 1 < yinBuffer.length) ? tau + 1 : tau;
-            
-            if (x0 === tau) {
-                betterTau = (yinBuffer[tau] <= yinBuffer[x2]) ? tau : x2;
-            } else if (x2 === tau) {
-                betterTau = (yinBuffer[tau] <= yinBuffer[x0]) ? tau : x0;
-            } else {
-                const s0 = yinBuffer[x0];
-                const s1 = yinBuffer[tau];
-                const s2 = yinBuffer[x2];
-                betterTau = tau + (s2 - s0) / (2 * (2 * s1 - s2 - s0));
-            }
-            
-            return sampleRate / betterTau;
-        }
-
-        function updateTunerDisplay(cents, frequency) {
-            const needleContainer = document.getElementById('needleContainer');
-            const needleStick = document.getElementById('needleStick');
-            const centsDisplay = document.getElementById('gaugeCentsDisplay');
-            const instruction = document.getElementById('tunerInstruction');
-            const frequencyDisplay = document.getElementById('tunerFrequency');
-            
-            frequencyDisplay.textContent = `${Math.round(frequency)} Hz`;
-            
-            const clampedCents = Math.max(-50, Math.min(50, cents));
-            const position = 50 + clampedCents;
-            
-            needleContainer.style.left = `${position}%`;
-            
-            centsDisplay.style.display = 'block';
-            centsDisplay.textContent = Math.round(Math.abs(cents));
-            
-            const now = Date.now();
-            if (Math.abs(cents) < 5) {
-                instruction.textContent = 'In Tune!';
-                instruction.style.color = '#48bb78';
-                needleStick.classList.add('in-tune');
-                centsDisplay.style.background = '#48bb78';
-                
-                if (now - appState.lastTuneTime > 1000) {
-                    playTone(appState.targetFrequency, 0.15, 0.2);
-                    appState.lastTuneTime = now;
-                }
-            } else {
-                needleStick.classList.remove('in-tune');
-                
-                if (cents < -5) {
-                    instruction.textContent = 'Tune Up (Tighten)';
-                    instruction.style.color = '#f56565';
-                    centsDisplay.style.background = '#f56565';
-                } else if (cents > 5) {
-                    instruction.textContent = 'Tune Down (Loosen)';
-                    instruction.style.color = '#ff8c42';
-                    centsDisplay.style.background = '#ff8c42';
+                // Only update if within reasonable range (within 1 octave)
+                if (Math.abs(cents) < 1200) {
+                    updateTunerDisplay(cents, frequency);
                 }
             }
         }
+        
+        requestAnimationFrame(updateTuner);
+    }
 
-        function playTone(frequency, duration, volume = 0.3) {
-            const oscillator = appState.audioContext.createOscillator();
-            const gainNode = appState.audioContext.createGain();
-            
-            oscillator.connect(gainNode);
-            gainNode.connect(appState.audioContext.destination);
-            
-            oscillator.frequency.value = frequency;
-            gainNode.gain.value = volume;
-            
-            oscillator.start();
-            setTimeout(() => oscillator.stop(), duration * 1000);
-        }
-
-        function stopTuner() {
-            appState.tunerActive = false;
-            appState.selectedString = null;
-            appState.targetFrequency = null;
-            
-            if (appState.mediaStream) {
-                appState.mediaStream.getTracks().forEach(track => track.stop());
-                appState.mediaStream = null;
+    function autoCorrelate(buffer, sampleRate) {
+        // YIN Algorithm - Better for musical instruments
+        const threshold = 0.1;
+        const bufferSize = buffer.length;
+        const yinBuffer = new Float32Array(bufferSize / 2);
+        
+        // Step 1: Calculate difference function
+        yinBuffer[0] = 1;
+        let runningSum = 0;
+        
+        for (let tau = 1; tau < yinBuffer.length; tau++) {
+            let sum = 0;
+            for (let i = 0; i < yinBuffer.length; i++) {
+                const delta = buffer[i] - buffer[i + tau];
+                sum += delta * delta;
             }
+            yinBuffer[tau] = sum;
+        }
+        
+        // Step 2: Cumulative mean normalized difference
+        for (let tau = 1; tau < yinBuffer.length; tau++) {
+            runningSum += yinBuffer[tau];
+            yinBuffer[tau] *= tau / runningSum;
+        }
+        
+        // Step 3: Absolute threshold
+        let tau = 2; // Start at 2 to avoid octave errors
+        while (tau < yinBuffer.length) {
+            if (yinBuffer[tau] < threshold) {
+                while (tau + 1 < yinBuffer.length && yinBuffer[tau + 1] < yinBuffer[tau]) {
+                    tau++;
+                }
+                break;
+            }
+            tau++;
+        }
+        
+        // No valid period found
+        if (tau === yinBuffer.length || yinBuffer[tau] >= threshold) {
+            return -1;
+        }
+        
+        // Step 4: Parabolic interpolation
+        let betterTau;
+        const x0 = (tau < 1) ? tau : tau - 1;
+        const x2 = (tau + 1 < yinBuffer.length) ? tau + 1 : tau;
+        
+        if (x0 === tau) {
+            betterTau = (yinBuffer[tau] <= yinBuffer[x2]) ? tau : x2;
+        } else if (x2 === tau) {
+            betterTau = (yinBuffer[tau] <= yinBuffer[x0]) ? tau : x0;
+        } else {
+            const s0 = yinBuffer[x0];
+            const s1 = yinBuffer[tau];
+            const s2 = yinBuffer[x2];
+            betterTau = tau + (s2 - s0) / (2 * (2 * s1 - s2 - s0));
+        }
+        
+        return sampleRate / betterTau;
+    }
+
+    function updateTunerDisplay(cents, frequency) {
+        const needleContainer = document.getElementById('needleContainer');
+        const needleStick = document.getElementById('needleStick');
+        const centsDisplay = document.getElementById('gaugeCentsDisplay');
+        const instruction = document.getElementById('tunerInstruction');
+        const frequencyDisplay = document.getElementById('tunerFrequency');
+        
+        // Show frequency
+        frequencyDisplay.textContent = `${Math.round(frequency)} Hz`;
+        
+        // Clamp cents to -50 to +50 range
+        const clampedCents = Math.max(-50, Math.min(50, cents));
+        
+        // Convert cents to percentage position (0% = left, 50% = center, 100% = right)
+        const position = 50 + clampedCents; // 0 to 100%
+        
+        // Move needle
+        needleContainer.style.left = `${position}%`;
+        
+        // Show cents display
+        centsDisplay.style.display = 'block';
+        centsDisplay.textContent = Math.round(Math.abs(cents));
+        
+        // Update status
+        const now = Date.now();
+        if (Math.abs(cents) < 5) {
+            // IN TUNE!
+            instruction.textContent = 'In Tune!';
+            instruction.style.color = '#48bb78';
+            needleStick.classList.add('in-tune');
+            centsDisplay.style.background = '#48bb78';
             
-            document.getElementById('tunerInstruction').textContent = 'Select a string to tune';
-            document.getElementById('tunerInstruction').style.color = '#ff6b35';
-            document.getElementById('tunerCurrentNote').textContent = '-';
-            document.getElementById('tunerFrequency').textContent = '- Hz';
-            document.getElementById('gaugeCentsDisplay').style.display = 'none';
-            
-            const needleContainer = document.getElementById('needleContainer');
-            const needleStick = document.getElementById('needleStick');
-            needleContainer.style.left = '50%';
+            // Play success sound
+            if (now - appState.lastTuneTime > 1000) {
+                playTone(appState.targetFrequency, 0.15, 0.2);
+                appState.lastTuneTime = now;
+            }
+        } else {
+            // NOT IN TUNE
             needleStick.classList.remove('in-tune');
             
-            document.querySelectorAll('.tuning-peg').forEach(btn => btn.classList.remove('active'));
+            if (cents < -5) {
+                instruction.textContent = 'Tune Up (Tighten)';
+                instruction.style.color = '#f56565';
+                centsDisplay.style.background = '#f56565';
+            } else if (cents > 5) {
+                instruction.textContent = 'Tune Down (Loosen)';
+                instruction.style.color = '#ff8c42';
+                centsDisplay.style.background = '#ff8c42';
+            }
         }
-    </script>
+    }
+
+    function playTone(frequency, duration, volume = 0.3) {
+        const oscillator = appState.audioContext.createOscillator();
+        const gainNode = appState.audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(appState.audioContext.destination);
+        
+        oscillator.frequency.value = frequency;
+        gainNode.gain.value = volume;
+        
+        oscillator.start();
+        setTimeout(() => oscillator.stop(), duration * 1000);
+    }
+
+    function stopTuner() {
+        appState.tunerActive = false;
+        appState.selectedString = null;
+        appState.targetFrequency = null;
+        
+        // Stop media stream
+        if (appState.mediaStream) {
+            appState.mediaStream.getTracks().forEach(track => track.stop());
+            appState.mediaStream = null;
+        }
+        
+        // Reset display
+        document.getElementById('tunerInstruction').textContent = 'Select a string to tune';
+        document.getElementById('tunerInstruction').style.color = '#ff6b35';
+        document.getElementById('tunerCurrentNote').textContent = '-';
+        document.getElementById('tunerFrequency').textContent = '- Hz';
+        document.getElementById('gaugeCentsDisplay').style.display = 'none';
+        
+        // Reset needle
+        const needleContainer = document.getElementById('needleContainer');
+        const needleStick = document.getElementById('needleStick');
+        needleContainer.style.left = '50%';
+        needleStick.classList.remove('in-tune');
+        
+        document.querySelectorAll('.tuning-peg').forEach(btn => btn.classList.remove('active'));
+    }
+</script>
+```
+
 </body>
 </html>
