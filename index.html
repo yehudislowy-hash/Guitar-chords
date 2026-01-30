@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Guitar Chords</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/4.1.1/tesseract.min.js"></script>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div class="category-screen" id="categoryScreen">
+        <button class="tuner-btn-home" onclick="openTuner()">🎸 Tuner</button>
+        <h1>🎸 My Guitar Chords</h1>
+        <div class="category-buttons">
+            <button class="category-btn" onclick="selectCategory('jewish')">Jewish Music</button>
+            <button class="category-btn" onclick="selectCategory('nonJewish')">Non-Jewish Music</button>
+        </div>
+    </div>
+
+    <div class="app-screen" id="appScreen">
+        <div class="app-header">
+            <button class="back-btn" onclick="goBackToCategories()">← Back</button>
+            <h2 class="app-title" id="categoryTitle">Jewish Music<span class="song-counter" id="songCounter">0 songs</span></h2>
+            <div class="header-controls">
+                <button class="icon-btn" onclick="openSetlistManager()">📋 Setlists</button>
+                <button class="icon-btn" onclick="openTuner()">🎸 Tuner</button>
+            </div>
+        </div>
+
+        <div class="browse-options">
+            <button class="browse-btn active" onclick="setBrowseMode('name')">Song Name (A-Z)</button>
+            <button class="browse-btn" onclick="setBrowseMode('artist')">By Artist</button>
+        </div>
+
+        <div class="controls">
+            <input type="text" class="search-box" id="searchBox" placeholder="Search songs..." oninput="searchSongs()">
+            <button class="shuffle-btn" onclick="shuffleSong()">🔀 Shuffle</button>
+            <button class="add-song-btn" onclick="openAddSongModal()">+ Add Song</button>
+        </div>
+
+        <div class="songs-container" id="songsContainer">
+            <div class="songs-list" id="songsList"></div>
+        </div>
+    </div>
+
+    <div class="song-view-screen" id="songViewScreen">
+        <div class="song-view-header">
+            <div class="song-view-controls">
+                <button class="control-btn" onclick="closeSongView()">← Back to List</button>
+                <button class="control-btn" onclick="shuffleSong()">🔀 Next Random</button>
+                <button class="control-btn" onclick="editCurrentSong()">✏️ Edit</button>
+                <button class="control-btn" onclick="deleteCurrentSong()">🗑️ Delete</button>
+                <button class="control-btn" onclick="printSong()">🖨️ Print</button>
+            </div>
+
+            <div class="song-info-section">
+                <img id="viewAlbumArt" class="song-album-art" src="" alt="Album Art">
+                <div class="song-details">
+                    <h1 class="song-title-view" id="viewSongTitle"></h1>
+                    <p class="song-artist-view" id="viewSongArtist"></p>
+                    <div class="capo-info" id="viewCapo"></div>
+                    
+                    <div class="capo-transpose">
+                        <label>Transpose to Capo:</label>
+                        <select class="capo-select" id="capoTranspose" onchange="transposeChords()">
+                            <option value="0">No Capo</option>
+                            <option value="1">Capo 1</option>
+                            <option value="2">Capo 2</option>
+                            <option value="3">Capo 3</option>
+                            <option value="4">Capo 4</option>
+                            <option value="5">Capo 5</option>
+                            <option value="6">Capo 6</option>
+                            <option value="7">Capo 7</option>
+                            <option value="8">Capo 8</option>
+                        </select>
+                    </div>
+
+                    <div class="chords-list" id="viewChordsList"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="youtube-container" id="youtubeContainer" style="display:none;">
+            <div class="playback-speed">
+                <label>Speed:</label>
+                <button class="speed-option" onclick="setYouTubeSpeed(0.5)">0.5x</button>
+                <button class="speed-option" onclick="setYouTubeSpeed(0.75)">0.75x</button>
+                <button class="speed-option active" onclick="setYouTubeSpeed(1)">1x</button>
+                <button class="speed-option" onclick="setYouTubeSpeed(1.25)">1.25x</button>
+                <button class="speed-option" onclick="setYouTubeSpeed(1.5)">1.5x</button>
+            </div>
+            <iframe id="youtubePlayer" class="youtube-player" src="" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" enablejsapi="1"></iframe>
+        </div>
+
+        <div class="song-content" id="songContent"></div>
+
+        <div class="scroll-controls">
+            <button class="scroll-btn" id="scrollBtn" onclick="toggleAutoScroll()">▶ Start Scroll</button>
+            <div class="scroll-speed">
+                <label>Speed:</label>
+                <input type="range" class="speed-slider" id="scrollSpeed" min="1" max="20" value="5">
+                <span id="speedValue">5</span>
+            </div>
+            <div class="text-size-control">
+                <button class="size-btn" onclick="changeTextSize(-2)">A-</button>
+                <button class="size-btn" onclick="changeTextSize(2)">A+</button>
+            </div>
+            <div class="font-selector">
+                <label>Font:</label>
+                <select class="font-select" id="fontSelect" onchange="changeFont()">
+                    <option value="'Courier New', monospace">Courier</option>
+                    <option value="'Arial', sans-serif">Arial</option>
+                    <option value="'Georgia', serif">Georgia</option>
+                    <option value="'Verdana', sans-serif">Verdana</option>
+                    <option value="'Times New Roman', serif">Times</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="songModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Add New Song</h2>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="switchTab('upload')">Upload Image</button>
+                <button class="tab-btn" onclick="switchTab('manual')">Manual Entry</button>
+            </div>
+
+            <div class="tab-content active" id="uploadTab">
+                <div class="upload-zone" id="uploadZone">
+                    <p style="font-size: 1.2em; margin-bottom: 10px;">📸 Click or Drag & Drop Image</p>
+                    <p style="color: #718096;">Upload a picture of your song with chords</p>
+                    <input type="file" id="imageUpload" accept="image/*" style="display: none;" onchange="handleImageUpload(event)">
+                </div>
+                <img id="previewImage" class="preview-image hidden" src="" alt="Preview">
+                <p id="processingText" class="processing-text hidden">Processing image...</p>
+            </div>
+
+            <div class="tab-content" id="manualTab">
+                <div class="form-group">
+                    <label>Song Title*</label>
+                    <input type="text" id="songTitle" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Artist Name*</label>
+                    <input type="text" id="artistName" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Album Cover Image</label>
+                    <input type="file" id="albumImageFile" accept="image/*" onchange="handleAlbumArtUpload(event)">
+                    <img id="albumArtPreview" class="album-art-preview" src="" alt="Album Preview">
+                </div>
+
+                <div class="form-group">
+                    <label>Capo Position</label>
+                    <select id="capoPosition">
+                        <option value="0">No Capo</option>
+                        <option value="1">Capo 1</option>
+                        <option value="2">Capo 2</option>
+                        <option value="3">Capo 3</option>
+                        <option value="4">Capo 4</option>
+                        <option value="5">Capo 5</option>
+                        <option value="6">Capo 6</option>
+                        <option value="7">Capo 7</option>
+                        <option value="8">Capo 8</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>YouTube URL</label>
+                    <input type="text" id="youtubeUrl" placeholder="https://www.youtube.com/watch?v=...">
+                </div>
+
+                <div class="form-group">
+                    <label>Lyrics with Chords*</label>
+                    <textarea id="lyricsChords" placeholder="Type chords on their own line, then lyrics below:
+
+C
+Why must I go to bed at 8
+F                    G
+When Esti's up till 9?"></textarea>
+                </div>
+
+                <button class="submit-btn" onclick="saveSong()">Save Song</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="tunerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Guitar Tuner</h2>
+                <button class="close-modal" onclick="closeTuner()">&times;</button>
+            </div>
+
+            <div class="tuner-screen">
+                <div class="tuner-instruction" id="tunerInstruction">Select a string to tune</div>
+                
+                <div class="gauge-container">
+                    <div class="tuner-meter-bar">
+                        <div class="tuner-needle-container" id="needleContainer">
+                            <div class="tuner-needle-stick" id="needleStick"></div>
+                        </div>
+                    </div>
+                    <div class="tuner-meter-marks">
+                        <span>-20</span>
+                        <span>-10</span>
+                        <span class="center-mark">0</span>
+                        <span>+10</span>
+                        <span>+20</span>
+                    </div>
+                    <div class="gauge-cents-display" id="gaugeCentsDisplay" style="display: none;">0</div>
+                </div>
+
+                <div class="tuner-current-note" id="tunerCurrentNote">-</div>
+                <div class="tuner-frequency" id="tunerFrequency">- Hz</div>
+                
+                <div class="guitar-headstock">
+                    <div class="headstock-body">
+                        <div class="headstock-logo">TunerPro</div>
+                        <div class="tuning-pegs">
+                            <div class="peg-row">
+                                <div class="string-line"></div>
+                                <button class="tuning-peg left" onclick="selectString('D', 146.83, this)">D</button>
+                                <button class="tuning-peg right" onclick="selectString('G', 196.00, this)">G</button>
+                            </div>
+                            <div class="peg-row">
+                                <div class="string-line"></div>
+                                <button class="tuning-peg left" onclick="selectString('A', 110.00, this)">A</button>
+                                <button class="tuning-peg right" onclick="selectString('B', 246.94, this)">B</button>
+                            </div>
+                            <div class="peg-row">
+                                <div class="string-line"></div>
+                                <button class="tuning-peg left" onclick="selectString('E', 82.41, this)">E</button>
+                                <button class="tuning-peg right" onclick="selectString('e', 329.63, this)">e</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="chord-diagram-modal" id="chordDiagramModal">
+        <div class="chord-diagram-title" id="chordDiagramTitle">C</div>
+        <svg class="chord-diagram-svg" id="chordDiagramSvg" viewBox="0 0 200 240"></svg>
+    </div>
+
+    <div class="modal" id="setlistModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Setlist Manager</h2>
+                <button class="close-modal" onclick="closeSetlistModal()">&times;</button>
+            </div>
+            
+            <div class="setlist-manager">
+                <button class="setlist-btn" onclick="createNewSetlist()">+ New Setlist</button>
+                <div id="setlistsList"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./script1.js"></script>
+    <script src="./script2.js"></script>
+    <script src="./script3.js"></script>
+</body>
+</html>
